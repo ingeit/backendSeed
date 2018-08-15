@@ -25,11 +25,6 @@ app.use('/api', apiRouter);
 app.use((req, res) => {
   res.status(404).send('Recurso no disponible');
 });
-// catch 404 and forward to error handler de EXPRESS
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
-//CUAL USAR???
 /***************************************/
 
 // error handler

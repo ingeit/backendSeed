@@ -1,0 +1,6 @@
+Falta:
+implementar passport.
+crear clases para las query
+response send json mensaje
+
+

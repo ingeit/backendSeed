@@ -3,7 +3,14 @@ var db = require('../config/database');
 //ejemplo de un POST (insertar de alguna forma algo en la DB)
 exports.nuevo = (params) => {
     return new Promise((resolve, reject) => {
-        db.query('call usuario_nuevo(?,?)', [params.apellido, params.nombre])
+        let parametros = [
+            params.apellido,
+            params.nombre
+        ];
+        let sp = 'usuario_nuevo';
+        consulta = db.consulta(parametros.length, sp)
+        console.log('​exports.nuevo -> consulta', consulta);
+        db.conexion.query(consulta, parametros)
             .then(rows => {
                 console.log('​exports.nuevo -> rows', rows);
                 let respuesta = rows[0][0]
