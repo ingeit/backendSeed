@@ -40,7 +40,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'modificadonombre','apellido moficiado','2018-08-16 09:58:42','A');
+INSERT INTO `Usuario` VALUES (1,'ricardoooooo','brunoo','2018-08-16 10:17:31','A'),(2,'ricardo','perez','2018-08-16 10:17:40','A');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,8 +157,8 @@ PROC: BEGIN
 	END IF;
     
     -- Control parametros existentes unicos
-    IF EXISTS (SELECT apellido FROM Usuario WHERE apellido=uApellido AND estado='A') THEN
-		SELECT 0 as codigo, 'El Usuario ya existe' mensaje;
+    IF (SELECT idUsuario FROM Usuario WHERE apellido=uApellido AND estado='A') <> uIdUsuario THEN
+		SELECT 0 as codigo, 'El apellido ya se encuentra en uso (esto pasaria por ejemplo para un mail)' mensaje;
         LEAVE PROC;
 	END IF;
 
@@ -236,4 +236,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-16 10:11:43
+-- Dump completed on 2018-08-16 10:22:15

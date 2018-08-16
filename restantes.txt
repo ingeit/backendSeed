@@ -1,6 +1,5 @@
 Falta:
 implementar passport.
-crear clases para las query
 response send json mensaje
 implementar variables js donde esten todas las variable q se puedan usar en cyakquier metodo
 
