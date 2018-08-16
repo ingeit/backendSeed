@@ -65,7 +65,7 @@ exports.query_get_data = (sp_name, parametros = []) => {
                 //en mysql, la primera respuesta es el codigo, y la segunda respuesta es la vista en si
                 // siempre hay q devolver en respuesta [0][0] el codigo
                 if (res[0][0].codigo < 1) {
-                    return reject(res)
+                    return reject([res[0],[]])
                 }
                 // aqui en [1] estan todas las filas de la vista, por eso no pongo [1][0], porq sino haria referencia a la primera fila de la vista
                 return resolve(res);
@@ -75,6 +75,7 @@ exports.query_get_data = (sp_name, parametros = []) => {
                 let respuesta = [];
                 respuesta[0] = [];
                 respuesta[0][0] = { 'codigo': -1, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }
+                respuesta[1] = [];
                 return reject(respuesta);
             })
     })
