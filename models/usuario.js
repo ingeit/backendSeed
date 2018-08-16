@@ -1,4 +1,4 @@
-var db = require('../config/database');
+var db = require('./dbQuery');
 
 //ejemplo de un POST (insertar de alguna forma algo en la DB)
 exports.nuevo = (params) => {
