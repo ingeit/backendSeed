@@ -29,7 +29,6 @@ exports.dame = (params) => {
         let parametros = [
             params.idUsuario
         ];
-        console.log('​exports.dame -> parametros', parametros);
         db.query_get_data(sp_name, parametros)
             .then(res => resolve(res))
             .catch(err => reject(err))
