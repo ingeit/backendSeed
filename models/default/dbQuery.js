@@ -1,4 +1,4 @@
-var db = require('../config/database')
+var db = require('../../config/database')
 /*
 Al hacer un insert en DB, la respuesta tiene la forma 
 {
