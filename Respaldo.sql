@@ -18,29 +18,30 @@ USE `test`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Usuarios`
+-- Table structure for table `Usuario`
 --
 
-DROP TABLE IF EXISTS `Usuarios`;
+DROP TABLE IF EXISTS `Usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Usuarios` (
+CREATE TABLE `Usuario` (
   `idUsuario` int(11) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `fechaAlta` timestamp NOT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `fechaAlta` datetime NOT NULL,
+  `estado` char(1) NOT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Usuarios`
+-- Dumping data for table `Usuario`
 --
 
-LOCK TABLES `Usuarios` WRITE;
-/*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
-INSERT INTO `Usuarios` VALUES (1,'ricardo','bruno','2018-08-15 12:20:36'),(2,'bruno','ricardo','2018-08-15 12:28:59'),(3,'brunoad','ricardoasd','2018-08-15 12:39:43'),(4,'brunoada','ricardoasdd','2018-08-15 12:48:01'),(5,'brunoadaasdasdadad','ricardoasdd','2018-08-15 13:04:50'),(6,'asdadad','ricardoasdd','2018-08-15 13:09:51'),(7,'asdadadasd','ricardoasdd','2018-08-15 13:45:15'),(8,'asdadadasdasd','ricardoasdd','2018-08-15 13:48:14');
-/*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
+LOCK TABLES `Usuario` WRITE;
+/*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
+INSERT INTO `Usuario` VALUES (1,'modificadonombre','apellido moficiado','2018-08-16 09:58:42','A');
+/*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -50,6 +51,33 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'test'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `usuario_dame` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_dame`(uIdUsuario INT)
+PROC: BEGIN
+
+	IF NOT EXISTS (SELECT idUsuario FROM Usuario WHERE idUsuario = uIdUsuario AND estado='A') THEN
+		SELECT 0 as codigo, 'El Usuario no existe o esta dado de baja' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT 1 AS codigo;
+    SELECT * FROM Usuario WHERE idUsuario = uIdUsuario;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `usuario_listar` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -67,10 +95,78 @@ PROC: BEGIN
     En caso de querer filtrar la vista por fecha, se deberia hacer el control de q la fecha sea valida por ejemplo.
     y en caso de que no, hacer un SELECT 0 as codigo BLABLA as mensaje;
     LEAVE PROC;
-    */
-	START TRANSACTION; 
+    EJ:*/
+    /*
+    IF NOT EXISTS (SELECT idUsuario FROM Usuario WHERE idUsuario = 2000) THEN
+		SELECT 0 AS codigo, 'No existe el usuario' AS mensaje;
+		LEAVE PROC;
+	END IF;
+	*/
+    
 		SELECT 1 as codigo;
-		SELECT * FROM Usuarios;
+		SELECT * FROM Usuario;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuario_modificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_modificar`(uIdUsuario INT, uNombre VARCHAR(45), uApellido VARCHAR(45))
+PROC: BEGIN
+
+	-- Manejo de errores exception
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	BEGIN
+		GET DIAGNOSTICS CONDITION 1
+		@c1 = RETURNED_SQLSTATE, @c2 = MESSAGE_TEXT;
+		SELECT -1 AS codigo, CONCAT('Error numero: ',@c1,'. Descripcion: ',@c2)AS mensaje;
+		ROLLBACK;
+	END;
+     
+	-- Control de inexistencia
+	IF NOT EXISTS (SELECT idUsuario FROM Usuario WHERE idUsuario = uIdUsuario) THEN
+		SELECT 0 as codigo, 'El usuario no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    -- Control parametros vacios
+    IF (uNombre IS NULL OR uNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF (uIdUsuario IS NULL OR uIdUsuario = 0) THEN
+		SELECT 0 as codigo, 'Numero de identificacion incorrecto' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+	 IF (uApellido IS NULL OR uApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    -- Control parametros existentes unicos
+    IF EXISTS (SELECT apellido FROM Usuario WHERE apellido=uApellido AND estado='A') THEN
+		SELECT 0 as codigo, 'El Usuario ya existe' mensaje;
+        LEAVE PROC;
+	END IF;
+
+	START TRANSACTION;
+		UPDATE Usuario 
+        SET nombre=uNombre, apellido = uApellido
+        WHERE idUsuario=uIdUsuario;
+		SELECT uIdUsuario as codigo, 'Usuario modificado con exito.' mensaje;
 	COMMIT;
 END ;;
 DELIMITER ;
@@ -88,7 +184,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uApellido VARCHAR(45), uNombre VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uNombre VARCHAR(45), uApellido VARCHAR(45))
 PROC: BEGIN
 
 	DECLARE uIdUsuario INT;
@@ -102,24 +198,26 @@ PROC: BEGIN
 		ROLLBACK;
 	 END;
         
-    IF (uApellido IS NULL OR uApellido = '') THEN
-		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
-        LEAVE PROC;
-	END IF;
+   
     IF (uNombre IS NULL OR uNombre = '') THEN
 		SELECT 0 as codigo, 'Debe ingresar el nombre del usuario.' mensaje;
         LEAVE PROC;
 	END IF;
     
+     IF (uApellido IS NULL OR uApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
     
-	IF EXISTS (SELECT apellido FROM Usuarios WHERE apellido=uApellido ) THEN
+    
+	IF EXISTS (SELECT apellido FROM Usuario WHERE apellido=uApellido AND estado='A') THEN
 		SELECT 0 as codigo, 'El Usuario ya existe' mensaje;
         LEAVE PROC;
 	END IF;
     
     START TRANSACTION;
-		SET uIdUsuario = 1 + (SELECT COALESCE(MAX(idUsuario),0) FROM Usuarios);
-		INSERT INTO Usuarios VALUES (uIdUsuario,uApellido, uNombre, NOW());
+		SET uIdUsuario = 1 + (SELECT COALESCE(MAX(idUsuario),0) FROM Usuario);
+		INSERT INTO Usuario VALUES (uIdUsuario,uNombre,uApellido,CURRENT_TIMESTAMP(),'A');
 		SELECT uIdUsuario AS codigo, 'Usuario creado exitosamente' mensaje;
     COMMIT;
 END ;;
@@ -138,4 +236,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-15 10:50:43
+-- Dump completed on 2018-08-16 10:11:43
