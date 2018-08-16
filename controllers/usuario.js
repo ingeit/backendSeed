@@ -1,7 +1,7 @@
-var usuarios = require('../models/usuarios');
+var usuario = require('../models/usuario');
 
 exports.nuevo = (req, res) => {
-    usuarios.nuevo(req.body)
+    usuario.nuevo(req.body)
         .then(respuesta => {
             res.status(200).send(respuesta)
         })
@@ -11,7 +11,7 @@ exports.nuevo = (req, res) => {
 }
 
 exports.listar = (req,res) => {
-    usuarios.listar()
+    usuario.listar()
         .then(respuesta => {
             console.log('​exports.listar -> respuesta', respuesta);
             res.status(200).send(respuesta)
