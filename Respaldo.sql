@@ -211,7 +211,7 @@ PROC: BEGIN
     
     
 	IF EXISTS (SELECT apellido FROM Usuario WHERE apellido=uApellido AND estado='A') THEN
-		SELECT 0 as codigo, 'El Usuario ya existe' mensaje;
+		SELECT 0 as codigo, 'El apellido ya esta en uso (por ej: para un mail)' mensaje;
         LEAVE PROC;
 	END IF;
     
@@ -236,4 +236,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-16 10:22:15
+-- Dump completed on 2018-08-16 10:25:00
