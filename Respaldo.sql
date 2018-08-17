@@ -48,7 +48,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'asdff3','$2b$12$P6QwfboKGT3eVMXl0eA8UOPf.YRTQxhv/bvrZj6sUf54YL9RZr0wq','usuario','asd','asd','rbruno@g2maail.com','2018-08-17 10:50:55',NULL,NULL,'A'),(2,'asdff32213','$2b$12$f4QbJnozljqSgqT96xCySeGh1w15HTyhGCIT4XGAHK3.c3pbba61.','usuario','asd','asd','rbrasduno@g2maail.com','2018-08-17 10:51:10',NULL,NULL,'A'),(3,'asdff32a213','$2b$12$9J/.g5hQXd22TGVmjePk2uZbvJ.OzAkdc9yT78svqTd/7YzUV1U/m','usuario','asd','asd','rbrasd3uno@g2maail.com','2018-08-17 10:55:47',NULL,NULL,'A'),(4,'asdff32a313','$2b$12$jVaQooKab/PvAoSF3aS9oelqKfJPAAF6Cp6f.JO0e/z8KO1Dm8z.W','usuario','asd','asd','rbrasd3uno2@g2maail.com','2018-08-17 12:23:44',NULL,NULL,'A');
+INSERT INTO `Usuario` VALUES (1,'ssssss','$2b$12$JoTV6iRuLlHx36UGNtBKfOyyR/HHMJ2S5oHa7KbiPv7Xeim9GPaEW','usuario','555555','a4444444sd','aaaa','2018-08-17 10:50:55','2018-08-17 12:50:37',NULL,'A'),(2,'asdff32213','$2b$12$f4QbJnozljqSgqT96xCySeGh1w15HTyhGCIT4XGAHK3.c3pbba61.','usuario','asd','asd','rbrasduno@g2maail.com','2018-08-17 10:51:10',NULL,NULL,'A'),(3,'asdff32a213','$2b$12$9J/.g5hQXd22TGVmjePk2uZbvJ.OzAkdc9yT78svqTd/7YzUV1U/m','usuario','asd','asd','rbrasd3uno@g2maail.com','2018-08-17 10:55:47',NULL,NULL,'A'),(4,'asdff32a313','$2b$12$jVaQooKab/PvAoSF3aS9oelqKfJPAAF6Cp6f.JO0e/z8KO1Dm8z.W','usuario','asd','asd','rbrasd3uno2@g2maail.com','2018-08-17 12:23:44',NULL,NULL,'A'),(5,'asdff332a313','$2b$12$urCM6ld7qXFDtT2ncWCAtO8CyO690.9htlwhh8NygliClnSsWqdoS','usuario','asd','asd','rbrasad3uno2@g2maail.com','2018-08-17 12:44:59',NULL,NULL,'A'),(6,'sssssss','$2b$12$ISrXJVIY9n8896jZTpa/vO4MuP8EirKj6f0h5SKvJhgmeMz98wv9m','usuario','555555','a4444444sd','aaa33a','2018-08-17 12:50:53',NULL,NULL,'A');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,8 +142,12 @@ PROC: BEGIN
 		SELECT -1 AS codigo, CONCAT('Error numero: ',@c1,'. Descripcion: ',@c2)AS mensaje;
 		ROLLBACK;
 	END;
-     
-	 IF (uUsername IS NULL OR uUsername = '') THEN
+    
+	IF (uIdUsuario IS NULL OR uIdUsuario = 0) THEN
+		SELECT 0 as codigo, 'Identificador de usuario inexistente' mensaje;
+        LEAVE PROC;
+	END IF;
+	IF (uUsername IS NULL OR uUsername = '') THEN
 		SELECT 0 as codigo, 'Debe ingresar un nombre de usuario.' mensaje;
         LEAVE PROC;
 	END IF;
@@ -164,8 +168,13 @@ PROC: BEGIN
         LEAVE PROC;
 	END IF;
     
-    -- Control parametros existentes unicos
+    IF NOT EXISTS (SELECT idUsuario FROM Usuario WHERE idUsuario=uIdUsuario) THEN
+		SELECT 0 as codigo, 'El usuario no existe' mensaje;
+        LEAVE PROC;
+	END IF;
     
+    
+    -- Control parametros existentes unicos
 	IF (SELECT idUsuario FROM Usuario WHERE mail=uMail AND estado='A') <> uIdUsuario THEN
 		SELECT 0 as codigo, 'El mail ya se encuentra en uso' mensaje;
         LEAVE PROC;
@@ -274,4 +283,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-17 12:24:14
+-- Dump completed on 2018-08-17 12:51:33
