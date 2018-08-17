@@ -5,13 +5,14 @@ var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var LocalStrategy = require('passport-local').Strategy;
 
-var jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  secretOrKey: enviroment_var.secret_key
-};
+// var jwtOptions = {
+//   // jwtFromRequest: ExtractJwt.fromAuthHeader(),
+//   secretOrKey: enviroment_var.secret_key
+// };
 
 var localLogin = new LocalStrategy(
-  (username, password, done) => {
+  function (username, password, done) {
+    console.log("hola")
     process.nextTick(() => {
       auth.login(username, password)
         .then((user) => {
@@ -24,15 +25,15 @@ var localLogin = new LocalStrategy(
   }
 );
 
-var jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  auth.dame(payload.idUsuario)
-    .then((user) => {
-      return done(null, user);
-    })
-    .catch(() => {
-      return done(null, false);
-    })
-});
+// var jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
+//   auth.dame(payload.idUsuario)
+//     .then((user) => {
+//       return done(null, user);
+//     })
+//     .catch(() => {
+//       return done(null, false);
+//     })
+// });
 
 passport.use(localLogin);
-passport.use(jwtLogin);
+// passport.use(jwtLogin);

@@ -4,7 +4,7 @@ USE `test`;
 --
 -- Host: localhost    Database: test
 -- ------------------------------------------------------
--- Server version	5.7.21
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -48,7 +48,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'ssssss','$2b$12$JoTV6iRuLlHx36UGNtBKfOyyR/HHMJ2S5oHa7KbiPv7Xeim9GPaEW','usuario','555555','a4444444sd','aaaa','2018-08-17 10:50:55','2018-08-17 12:50:37',NULL,'A'),(2,'asdff32213','$2b$12$f4QbJnozljqSgqT96xCySeGh1w15HTyhGCIT4XGAHK3.c3pbba61.','usuario','asd','asd','rbrasduno@g2maail.com','2018-08-17 10:51:10',NULL,NULL,'A'),(3,'asdff32a213','$2b$12$9J/.g5hQXd22TGVmjePk2uZbvJ.OzAkdc9yT78svqTd/7YzUV1U/m','usuario','asd','asd','rbrasd3uno@g2maail.com','2018-08-17 10:55:47',NULL,NULL,'A'),(4,'asdff32a313','$2b$12$jVaQooKab/PvAoSF3aS9oelqKfJPAAF6Cp6f.JO0e/z8KO1Dm8z.W','usuario','asd','asd','rbrasd3uno2@g2maail.com','2018-08-17 12:23:44',NULL,NULL,'A'),(5,'asdff332a313','$2b$12$urCM6ld7qXFDtT2ncWCAtO8CyO690.9htlwhh8NygliClnSsWqdoS','usuario','asd','asd','rbrasad3uno2@g2maail.com','2018-08-17 12:44:59',NULL,NULL,'A'),(6,'sssssss','$2b$12$ISrXJVIY9n8896jZTpa/vO4MuP8EirKj6f0h5SKvJhgmeMz98wv9m','usuario','555555','a4444444sd','aaa33a','2018-08-17 12:50:53',NULL,NULL,'A');
+INSERT INTO `Usuario` VALUES (1,'rbruno','$2b$12$YLHR0MSDqNFYVEFvs1ACm.lB.K0LJoZSBhG7M1mmqOFr8uC84E7gy','usuario','ricardo','bruno','rbruno@gmail.com','2018-08-17 19:43:39',NULL,NULL,'A');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,6 +59,53 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'test'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `auth_login` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `auth_login`(uUsername VARCHAR(20))
+PROC: BEGIN
+
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	 BEGIN
+		GET DIAGNOSTICS CONDITION 1
+        @c1 = RETURNED_SQLSTATE, @c2 = MESSAGE_TEXT;
+		SELECT 0 AS codigo, CONCAT('Error numero: ',@c1,'. Descripcion: ',@c2)AS mensaje;
+		ROLLBACK;
+	 END;
+    /*    
+	IF NOT EXISTS (SELECT idUsuario FROM Usuario WHERE username = uUsername) THEN
+		SELECT 0 as codigo, 'El usuario no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+	IF ((SELECT estado FROM usuarios WHERE usuario = uUsuario) = 'B') THEN
+		SELECT 0 as codigo, 'El usuario esta dado de baja' mensaje;
+        LEAVE PROC;
+	END IF;
+	*/
+	IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE usuario=uUsuario AND estado='A')
+    THEN
+		SELECT 0 as codigo, 'Usuario inexistente en el sistema' mensaje;
+        LEAVE PROC;
+	ELSE 
+		SELECT 1 as codigo, 'Ingreso Correcto' mensaje;
+		SELECT idUsuario, username, `password`, rol, nombre, apellido, mail FROM Usuario WHERE username=uUsername;
+        LEAVE PROC;
+	END IF;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `usuario_dame` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -283,4 +330,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-17 12:51:33
+-- Dump completed on 2018-08-17 20:00:12

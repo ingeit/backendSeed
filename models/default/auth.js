@@ -4,10 +4,9 @@ exports.login = (username, password) => {
   return new Promise((resolve, reject) => {
     let sp_name = 'auth_login'
     let parametros = [
-      username,
-      password
+      username
     ];
-    db.query_get_data(sp_name, parametros)
+    db.query(sp_name, parametros)
       .then(res => resolve(res))
       .catch(err => reject(err))
   })
@@ -19,7 +18,7 @@ exports.dame = (params) => {
     let parametros = [
       params.idUsuario
     ];
-    db.query_get_data(sp_name, parametros)
+    db.query(sp_name, parametros)
       .then(res => resolve(res))
       .catch(err => reject(err))
   })

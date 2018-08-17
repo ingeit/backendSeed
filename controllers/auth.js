@@ -5,16 +5,17 @@ var enviroment_var = require('../config/enviroment_var')
 // y vuelvo a consultar el usuario a la base de datos
 // para poder formar el token
 exports.login = (req, res) => {
-  var username = req.user;
-  if (username.codigo != 0) {
-    var userInfo = setUserInfo(username);
-    res.status(200).json({
-      token: 'JWT ' + generateToken(userInfo),
-      user: userInfo
-    });
-  } else {
-    res.json(username);
-  }
+  console.log('​exports.login -> req', req);
+  // var username = req.user;
+  // if (username.codigo != 0) {
+  //   var userInfo = setUserInfo(username);
+  //   res.status(200).json({
+  //     token: 'JWT ' + generateToken(userInfo),
+  //     user: userInfo
+  //   });
+  // } else {
+  //   res.json(username);
+  // }
 }
 
 function setUserInfo(request) {
