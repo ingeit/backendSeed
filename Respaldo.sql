@@ -26,11 +26,18 @@ DROP TABLE IF EXISTS `Usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Usuario` (
   `idUsuario` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` char(60) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
+  `mail` varchar(45) NOT NULL,
   `fechaAlta` datetime NOT NULL,
+  `fechaModificacion` datetime DEFAULT NULL,
+  `fechaBaja` datetime DEFAULT NULL,
   `estado` char(1) NOT NULL,
-  PRIMARY KEY (`idUsuario`)
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `mail_UNIQUE` (`mail`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,7 +47,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'ricardoooooo','brunoo','2018-08-16 10:17:31','A'),(2,'ricardo','perez','2018-08-16 10:17:40','A');
+INSERT INTO `Usuario` VALUES (1,'asd','77777889878','ricardo','bruno','rbrunount@gmail.com','2018-08-17 09:03:58','2018-08-17 09:18:28',NULL,'A'),(2,'asdasd','123456','ricardo','bruno','rbrunount@gmaail.com','2018-08-17 09:07:09',NULL,NULL,'A'),(3,'asdaasdasd','123456','ricardo','bruno','rbrunount@gmaaail.com','2018-08-17 09:08:13',NULL,NULL,'A'),(4,'asd2213','$2b$12$0JzNOq/az8iS25ac0q3r6.7WSs4CjySyIuBDprpL.pGuHONzT8z2u','ricardo','bruno','rbrunount@gmaaaaaail.com','2018-08-17 09:26:48',NULL,NULL,'A'),(5,'asd2213213','$2b$12$KcJ.lmzy7xhlerBxU7EeAeAJF34YOs.3MNDsBtBuAl00Y8O6uGtm6','ricardo','bruno','rbrunount@gmasdaaaaaail.com','2018-08-17 09:27:51',NULL,NULL,'A'),(6,'asd221321dasd3','$2b$12$BqAMQKsChFxUkd/5tETSg.9DmXiNYa6RWMDgPDM2eIm2ZMjRwl9wW','ricardo','bruno','rbrunasdount@gmasdaaaaaail.com','2018-08-17 09:28:45',NULL,NULL,'A'),(7,'asd2213231dasd3','$2b$12$Blf4We.quwkgIlvk3VseuOGTrOwEEhwVkPEYy98aWDjPi603xSOUu','ricardo','bruno','rbrunasdbount@gmasdaaaaaail.com','2018-08-17 09:32:27',NULL,NULL,'A');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,8 +76,8 @@ PROC: BEGIN
         LEAVE PROC;
 	END IF;
     
-    SELECT 1 AS codigo;
-    SELECT * FROM Usuario WHERE idUsuario = uIdUsuario;
+    SELECT 1 AS codigo, 'OK' AS mensaje;
+    SELECT idUsuario,username,nombre,apellido,mail,fechaAlta,fechaModificacion,fechaBaja FROM Usuario WHERE idUsuario = uIdUsuario;
     
 END ;;
 DELIMITER ;
@@ -103,8 +110,8 @@ PROC: BEGIN
 	END IF;
 	*/
     
-		SELECT 1 as codigo;
-		SELECT * FROM Usuario;
+		SELECT 1 AS codigo, 'OK' AS mensaje;
+		 SELECT idUsuario,username,nombre,apellido,mail,fechaAlta,fechaModificacion,fechaBaja FROM Usuario;
 
 END ;;
 DELIMITER ;
@@ -122,7 +129,8 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_modificar`(uIdUsuario INT, uNombre VARCHAR(45), uApellido VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_modificar`(uIdUsuario INT, uUsername VARCHAR(20),uPassword CHAR(60),
+uNombre VARCHAR(45), uApellido VARCHAR(45), uMail VARCHAR(45))
 PROC: BEGIN
 
 	-- Manejo de errores exception
@@ -134,37 +142,48 @@ PROC: BEGIN
 		ROLLBACK;
 	END;
      
-	-- Control de inexistencia
-	IF NOT EXISTS (SELECT idUsuario FROM Usuario WHERE idUsuario = uIdUsuario) THEN
-		SELECT 0 as codigo, 'El usuario no existe' mensaje;
+	 IF (uUsername IS NULL OR uUsername = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar un nombre de usuario.' mensaje;
         LEAVE PROC;
 	END IF;
-    
-    -- Control parametros vacios
+    IF (uPassword IS NULL OR uPassword = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar una contraseña.' mensaje;
+        LEAVE PROC;
+	END IF;
     IF (uNombre IS NULL OR uNombre = '') THEN
 		SELECT 0 as codigo, 'Debe ingresar el nombre del usuario.' mensaje;
         LEAVE PROC;
 	END IF;
-    
-    IF (uIdUsuario IS NULL OR uIdUsuario = 0) THEN
-		SELECT 0 as codigo, 'Numero de identificacion incorrecto' mensaje;
+	IF (uApellido IS NULL OR uApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
         LEAVE PROC;
 	END IF;
-    
-	 IF (uApellido IS NULL OR uApellido = '') THEN
-		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
+    IF (uMail IS NULL OR uMail = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar una direccion de correo electronico' mensaje;
         LEAVE PROC;
 	END IF;
     
     -- Control parametros existentes unicos
-    IF (SELECT idUsuario FROM Usuario WHERE apellido=uApellido AND estado='A') <> uIdUsuario THEN
-		SELECT 0 as codigo, 'El apellido ya se encuentra en uso (esto pasaria por ejemplo para un mail)' mensaje;
+    
+	IF (SELECT idUsuario FROM Usuario WHERE mail=uMail AND estado='A') <> uIdUsuario THEN
+		SELECT 0 as codigo, 'El mail ya se encuentra en uso' mensaje;
         LEAVE PROC;
 	END IF;
-
+    SET uUsername = LCASE(uUsername);
+    IF (SELECT idUsuario FROM Usuario WHERE username=uUsername AND estado='A') <> uIdUsuario THEN
+		SELECT 0 as codigo, 'El nombre de usuario ya se encuentra en uso' mensaje;
+        LEAVE PROC;
+	END IF;
+    
 	START TRANSACTION;
 		UPDATE Usuario 
-        SET nombre=uNombre, apellido = uApellido
+        SET 
+			username = uUsername,
+            `password` = uPassword,
+			nombre=uNombre,
+            apellido = uApellido,
+            mail = uMail,
+            fechaModificacion = NOW()
         WHERE idUsuario=uIdUsuario;
 		SELECT uIdUsuario as codigo, 'Usuario modificado con exito.' mensaje;
 	COMMIT;
@@ -184,7 +203,8 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uNombre VARCHAR(45), uApellido VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uUsername VARCHAR(20),uPassword CHAR(60),
+uNombre VARCHAR(45), uApellido VARCHAR(45), uMail VARCHAR(45))
 PROC: BEGIN
 
 	DECLARE uIdUsuario INT;
@@ -198,26 +218,41 @@ PROC: BEGIN
 		ROLLBACK;
 	 END;
         
-   
+    IF (uUsername IS NULL OR uUsername = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar un nombre de usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (uPassword IS NULL OR uPassword = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar una contraseña.' mensaje;
+        LEAVE PROC;
+	END IF;
     IF (uNombre IS NULL OR uNombre = '') THEN
 		SELECT 0 as codigo, 'Debe ingresar el nombre del usuario.' mensaje;
         LEAVE PROC;
 	END IF;
-    
-     IF (uApellido IS NULL OR uApellido = '') THEN
+	IF (uApellido IS NULL OR uApellido = '') THEN
 		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (uMail IS NULL OR uMail = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar una direccion de correo electronico' mensaje;
         LEAVE PROC;
 	END IF;
     
     
-	IF EXISTS (SELECT apellido FROM Usuario WHERE apellido=uApellido AND estado='A') THEN
-		SELECT 0 as codigo, 'El apellido ya esta en uso (por ej: para un mail)' mensaje;
+	IF EXISTS (SELECT mail FROM Usuario WHERE mail=uMail AND estado='A') THEN
+		SELECT 0 as codigo, 'El mail ya se encuentra en uso' mensaje;
+        LEAVE PROC;
+	END IF;
+    SET uUsername = LCASE(uUsername);
+    IF EXISTS (SELECT username FROM Usuario WHERE username=uUsername AND estado='A') THEN
+		SELECT 0 as codigo, 'El nombre de usuario ya se encuentra en uso' mensaje;
         LEAVE PROC;
 	END IF;
     
     START TRANSACTION;
 		SET uIdUsuario = 1 + (SELECT COALESCE(MAX(idUsuario),0) FROM Usuario);
-		INSERT INTO Usuario VALUES (uIdUsuario,uNombre,uApellido,CURRENT_TIMESTAMP(),'A');
+		INSERT INTO Usuario VALUES (uIdUsuario,uUsername,uPassword,uNombre,uApellido,uMail,NOW(),null,null,'A');
 		SELECT uIdUsuario AS codigo, 'Usuario creado exitosamente' mensaje;
     COMMIT;
 END ;;
@@ -236,4 +271,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-16 10:25:00
+-- Dump completed on 2018-08-17  9:42:27
