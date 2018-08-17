@@ -1,23 +1,26 @@
 var db = require('./default/dbQuery');
-var bcrypt = require('bcrypt');
+var utils = require('../providers/utils');
 
 //ejemplo de un POST (insertar de alguna forma algo en la DB)
 exports.nuevo = (params) => {
     return new Promise((resolve, reject) => {
-        const saltRounds = 12;
-        bcrypt.hash(params.password, saltRounds).then((passHashed) => {
-            let sp_name = 'usuario_nuevo';
-            let parametros = [
-                params.username,
-                passHashed,
-                params.nombre,
-                params.apellido,
-                params.mail
-            ];
-            db.query(sp_name, parametros)
-                .then(res => resolve(res))
-                .catch(err => reject(err))
-        });
+        utils.encriptarPassword(params.password)
+            .then((passHashed) => {
+                let sp_name = 'usuario_nuevo';
+                let parametros = [
+                    params.username,
+                    passHashed,
+                    params.nombre,
+                    params.apellido,
+                    params.mail
+                ];
+                db.query(sp_name, parametros)
+                    .then(res => resolve(res))
+                    .catch(err => reject(err))
+            })
+            .catch(err => {
+                reject(err)
+            })
     })
 }
 
@@ -44,20 +47,23 @@ exports.dame = (params) => {
 
 exports.modificar = (params) => {
     return new Promise((resolve, reject) => {
-        const saltRounds = 12;
-        bcrypt.hash(params.password, saltRounds).then((passHashed) => {
-            let sp_name = 'usuario_modificar';
-            let parametros = [
-                params.idUsuario,
-                params.username,
-                passHashed,
-                params.nombre,
-                params.apellido,
-                params.mail
-            ];
-            db.query(sp_name, parametros)
-                .then(res => resolve(res))
-                .catch(err => reject(err))
-        })
+        utils.encriptarPassword(params.password)
+            .then((passHashed) => {
+                let sp_name = 'usuario_modificar';
+                let parametros = [
+                    params.idUsuario,
+                    params.username,
+                    passHashed,
+                    params.nombre,
+                    params.apellido,
+                    params.mail
+                ];
+                db.query(sp_name, parametros)
+                    .then(res => resolve(res))
+                    .catch(err => reject(err))
+            })
+            .catch(err => {
+                reject(err)
+            })
     });
 }
