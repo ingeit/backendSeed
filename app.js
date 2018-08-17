@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var apiRouter = require('./routes/api');
 var helmet = require('helmet');
-
+var response = require('./models/default/response')
 var app = express();
 
 // view engine setup
@@ -19,7 +19,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(helmet());
 
-/*************** Routas ******************/
+
+/*************** response y Routas ******************/
+app.use(response);
 app.use('/api', apiRouter);
 //Propia
 app.use((req, res) => {

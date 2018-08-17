@@ -14,7 +14,7 @@ exports.nuevo = (params) => {
                 params.apellido,
                 params.mail
             ];
-            db.query_insert_data(sp_name, parametros)
+            db.query(sp_name, parametros)
                 .then(res => resolve(res))
                 .catch(err => reject(err))
         });
@@ -24,7 +24,7 @@ exports.nuevo = (params) => {
 exports.listar = () => {
     return new Promise((resolve, reject) => {
         let sp_name = 'usuario_listar'
-        db.query_get_data(sp_name)
+        db.query(sp_name)
             .then(res => resolve(res))
             .catch(err => reject(err))
     })
@@ -36,7 +36,7 @@ exports.dame = (params) => {
         let parametros = [
             params.idUsuario
         ];
-        db.query_get_data(sp_name, parametros)
+        db.query(sp_name, parametros)
             .then(res => resolve(res))
             .catch(err => reject(err))
     })
@@ -55,7 +55,7 @@ exports.modificar = (params) => {
                 params.apellido,
                 params.mail
             ];
-            db.query_insert_data(sp_name, parametros)
+            db.query(sp_name, parametros)
                 .then(res => resolve(res))
                 .catch(err => reject(err))
         })
