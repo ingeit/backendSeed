@@ -47,7 +47,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'asd','77777889878','ricardo','bruno','rbrunount@gmail.com','2018-08-17 09:03:58','2018-08-17 09:18:28',NULL,'A'),(2,'asdasd','123456','ricardo','bruno','rbrunount@gmaail.com','2018-08-17 09:07:09',NULL,NULL,'A'),(3,'asdaasdasd','123456','ricardo','bruno','rbrunount@gmaaail.com','2018-08-17 09:08:13',NULL,NULL,'A'),(4,'asd2213','$2b$12$0JzNOq/az8iS25ac0q3r6.7WSs4CjySyIuBDprpL.pGuHONzT8z2u','ricardo','bruno','rbrunount@gmaaaaaail.com','2018-08-17 09:26:48',NULL,NULL,'A'),(5,'asd2213213','$2b$12$KcJ.lmzy7xhlerBxU7EeAeAJF34YOs.3MNDsBtBuAl00Y8O6uGtm6','ricardo','bruno','rbrunount@gmasdaaaaaail.com','2018-08-17 09:27:51',NULL,NULL,'A'),(6,'asd221321dasd3','$2b$12$BqAMQKsChFxUkd/5tETSg.9DmXiNYa6RWMDgPDM2eIm2ZMjRwl9wW','ricardo','bruno','rbrunasdount@gmasdaaaaaail.com','2018-08-17 09:28:45',NULL,NULL,'A'),(7,'asd2213231dasd3','$2b$12$Blf4We.quwkgIlvk3VseuOGTrOwEEhwVkPEYy98aWDjPi603xSOUu','ricardo','bruno','rbrunasdbount@gmasdaaaaaail.com','2018-08-17 09:32:27',NULL,NULL,'A');
+INSERT INTO `Usuario` VALUES (1,'asdff3','$2b$12$P6QwfboKGT3eVMXl0eA8UOPf.YRTQxhv/bvrZj6sUf54YL9RZr0wq','asd','asd','rbruno@g2maail.com','2018-08-17 10:50:55',NULL,NULL,'A'),(2,'asdff32213','$2b$12$f4QbJnozljqSgqT96xCySeGh1w15HTyhGCIT4XGAHK3.c3pbba61.','asd','asd','rbrasduno@g2maail.com','2018-08-17 10:51:10',NULL,NULL,'A'),(3,'asdff32a213','$2b$12$9J/.g5hQXd22TGVmjePk2uZbvJ.OzAkdc9yT78svqTd/7YzUV1U/m','asd','asd','rbrasd3uno@g2maail.com','2018-08-17 10:55:47',NULL,NULL,'A');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,8 @@ PROC: BEGIN
             mail = uMail,
             fechaModificacion = NOW()
         WHERE idUsuario=uIdUsuario;
-		SELECT uIdUsuario as codigo, 'Usuario modificado con exito.' mensaje;
+		SELECT 1 AS codigo, 'Usuario modificado con exito.' AS mensaje;
+        SELECT uIdUsuario AS idUsuario;
 	COMMIT;
 END ;;
 DELIMITER ;
@@ -253,7 +254,8 @@ PROC: BEGIN
     START TRANSACTION;
 		SET uIdUsuario = 1 + (SELECT COALESCE(MAX(idUsuario),0) FROM Usuario);
 		INSERT INTO Usuario VALUES (uIdUsuario,uUsername,uPassword,uNombre,uApellido,uMail,NOW(),null,null,'A');
-		SELECT uIdUsuario AS codigo, 'Usuario creado exitosamente' mensaje;
+		SELECT 1 AS codigo, 'Usuario creado exitosamente' mensaje;
+        SELECT uIdUsuario AS idUsuario;
     COMMIT;
 END ;;
 DELIMITER ;
@@ -271,4 +273,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-17  9:42:27
+-- Dump completed on 2018-08-17 10:56:52
