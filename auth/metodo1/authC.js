@@ -3,7 +3,7 @@ var usuario = require('../../models/usuario');
 var auth = require('./authM');
 var utils = require('../../providers/utils')
 
-exports.registrar = (req, res) => {
+exports.register = (req, res) => {
   if (req.body.password.length == 0) {
     var error = [{ 'codigo': 0, 'mensaje': "Debe ingresar una contraseña" }]
     return res.json(error);
