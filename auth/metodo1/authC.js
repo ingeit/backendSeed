@@ -22,16 +22,13 @@ exports.registrar = (req, res) => {
 exports.login = (req, res) => {
   auth.findOne(req.body)
     .then(respuesta => {
-      console.log('​exports.login -> respuesta', respuesta);
       let pass_db = respuesta[1][0].password;
       let pass_req = req.body.password;
       let equal = bcrypt.compareSync(pass_req, pass_db);
       if (equal) {
-        console.log('​exports.login -> equal', equal);
         respuesta[1][0].token = utils.createToken(respuesta[1][0])
         return res.json(respuesta)
       } else {
-        console.log('​exports.login -> equal', equal);
         let err = [{ 'codigo': 0, 'mensaje': "Contraseña incorrecta" }]
         return res.json(err)
       }
@@ -42,8 +39,7 @@ exports.login = (req, res) => {
 };
 
 exports.ensureAuthenticated = function (req, res, next) {
-  let token = req.headers['x-access-token']
-  console.log('​exports.ensureAuthenticated -> token', token);
+  let token = req.headers.authorization
 
   if (!token) {
     let respuesta = [{ 'codigo': -2, 'mensaje': "Token inexistente en cabecera" }]
@@ -52,7 +48,6 @@ exports.ensureAuthenticated = function (req, res, next) {
 
   utils.verifyToken(token)
     .then(decoded => {
-      console.log('​exports.ensureAuthenticated -> decoded', decoded);
       return next();
     })
     .catch(err => {
