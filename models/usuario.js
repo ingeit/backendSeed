@@ -10,6 +10,7 @@ exports.nuevo = (params) => {
                 let parametros = [
                     params.username,
                     passHashed,
+                    'usuario',
                     params.nombre,
                     params.apellido,
                     params.mail

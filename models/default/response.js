@@ -19,7 +19,10 @@ var response = mung.json(
         if (codigo > 0) {
             return res.status(200).json(respuesta);
         }
-        (codigo == 0) ? status = 400 : status = 500
+        if (codigo == 0) status = 400;
+        if (codigo == -1) status = 500
+        if (codigo == -2) status = 401;
+        if (codigo == -3) status = 403;
         return res.status(status).json(mensaje);
     }
 );
