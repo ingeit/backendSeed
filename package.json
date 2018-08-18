@@ -1,10 +1,25 @@
 {
-  "name": "backendseed",
+  "name": "backend-seed",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ingeit/backendseed.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "IngeIT",
+    "email": "ingeit2017@gmail.com",
+    "url": "https://www.ingeit.com.ar"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ingeit/backendseed/issues"
+  },
+  "homepage": "https://github.com/ingeit/backendseed",
   "dependencies": {
     "bcrypt": "^3.0.0",
     "cors": "^2.8.4",
