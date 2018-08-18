@@ -11,8 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 // };
 
 var localLogin = new LocalStrategy(
-  function (username, password, done) {
-    console.log("hola")
+  (username, password, done) => {
     process.nextTick(() => {
       auth.login(username, password)
         .then((user) => {

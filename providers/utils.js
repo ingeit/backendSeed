@@ -21,3 +21,11 @@ exports.encriptarPassword = (password = '') => {
     })
 }
 
+exports.compararPassword = (textoPlano, textoCifrado) => {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(textoPlano,textoCifrado).then( (res) => {
+            resolve(res);
+        })
+        .catch( e => reject(e))
+    });
+}
