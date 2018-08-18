@@ -1,7 +1,0 @@
-Falta:
-implementar passport.
-response send json mensaje
-implementar variables js donde esten todas las variable q se puedan usar en cyakquier metodo
-entender e implementar process.env.NODE_ENV en los path
-
-ver porque si se hace un post con parametros faltantes desde postman, se clava
