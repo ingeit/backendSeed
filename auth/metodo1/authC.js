@@ -22,12 +22,18 @@ exports.registrar = (req, res) => {
 exports.login = (req, res) => {
   auth.findOne(req.body)
     .then(respuesta => {
+      console.log('​exports.login -> respuesta', respuesta);
       let pass_db = respuesta[1][0].password;
       let pass_req = req.body.password;
       let equal = bcrypt.compareSync(pass_req, pass_db);
       if (equal) {
+        console.log('​exports.login -> equal', equal);
         respuesta[1][0].token = utils.createToken(respuesta[1][0])
         return res.json(respuesta)
+      } else {
+        console.log('​exports.login -> equal', equal);
+        let err = [{ 'codigo': 0, 'mensaje': "Contraseña incorrecta" }]
+        return res.json(err)
       }
     })
     .catch(error => {
