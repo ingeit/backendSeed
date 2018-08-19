@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(helmet());
 
-
+console.log(app.get('env'))
 /*************** response y Routas ******************/
 app.use(response);
 app.use('/api', apiRouter);
