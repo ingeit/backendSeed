@@ -19,8 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(helmet());
 
-console.log(app.get('env'))
-console.log(process.env.NODE_ENV)
 /*************** response y Routas ******************/
 app.use(response);
 app.use('/api', apiRouter);
