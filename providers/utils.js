@@ -30,7 +30,7 @@ exports.createToken = (usuario) => {
         username: usuario.username,
         rol: usuario.rol,
     };
-    let expires = { expiresIn: '10s' }
+    let expires = { expiresIn: '1m' }
     return jwt.sign(payload, enviroment_var.secret_key, expires);
 };
 
@@ -38,6 +38,7 @@ exports.verifyToken = (token) => {
     return new Promise((resolve, reject) => {
         jwt.verify(token, enviroment_var.secret_key, function (err, decoded) {
             if (err) return reject(err)
+            // console.log('time left:', decoded.exp - Math.floor(Date.now()/1000));
             return resolve(decoded)
         });
     })
