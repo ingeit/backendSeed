@@ -28,18 +28,16 @@ exports.createToken = (usuario) => {
     let payload = {
         idUsuario: usuario.idUsuario,
         username: usuario.username,
-        rol: usuario.username,
-        iat: Date.now(),
-        exp: Date.now() + (1000 * 60),
+        rol: usuario.rol,
     };
-    return jwt.sign(payload, enviroment_var.secret_key);
+    let expires = { expiresIn: '10s' }
+    return jwt.sign(payload, enviroment_var.secret_key, expires);
 };
 
 exports.verifyToken = (token) => {
     return new Promise((resolve, reject) => {
         jwt.verify(token, enviroment_var.secret_key, function (err, decoded) {
             if (err) return reject(err)
-            if (decoded.exp <= Date.now()) return reject({ message: "expired" })
             return resolve(decoded)
         });
     })
