@@ -29,6 +29,9 @@ exports.createToken = (usuario) => {
         idUsuario: usuario.idUsuario,
         username: usuario.username,
         rol: usuario.rol,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        mail: usuario.mail
     };
     let expires = { expiresIn: '1m' }
     return jwt.sign(payload, enviroment_var.secret_key, expires);

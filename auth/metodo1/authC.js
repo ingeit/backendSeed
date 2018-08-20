@@ -26,7 +26,10 @@ exports.login = (req, res) => {
       let pass_req = req.body.password;
       let equal = bcrypt.compareSync(pass_req, pass_db);
       if (equal) {
-        respuesta[1][0].token = utils.createToken(respuesta[1][0])
+        let token = utils.createToken(respuesta[1][0])
+        respuesta[1][0] = {};
+        respuesta[1][0].token = token;
+        console.log('​exports.login -> respuesta', respuesta);
         return res.json(respuesta)
       } else {
         let err = [{ 'codigo': 0, 'mensaje': "Contraseña incorrecta" }]
