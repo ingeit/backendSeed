@@ -4,7 +4,7 @@ var auth = require('./authM');
 var utils = require('../../providers/utils')
 
 exports.register = (req, res) => {
-  if (req.body.password.length == 0) {
+  if (!req.body.password || req.body.password.length == 0) {
     var error = [{ 'codigo': 0, 'mensaje': "Debe ingresar una contraseña" }]
     return res.json(error);
   }
