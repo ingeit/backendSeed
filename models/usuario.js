@@ -14,8 +14,14 @@ exports.nuevo = (params) => {
             params.mail
         ];
         db.query(sp_name, parametros)
-            .then(res => resolve(res))
-            .catch(err => reject(err))
+            .then(res => {
+                console.log(timestamp, " Usuario registrado: ", JSON.stringify(res[1][0]))
+                resolve(res)
+            })
+            .catch(err => {
+                console.error(timestamp, " Error crear usuario", err[0])
+                reject(err)
+            })
 
     })
 }

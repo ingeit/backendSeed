@@ -4,6 +4,9 @@
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var enviroment_var = require('../config/enviroment_var');
+global.moment = require('moment');
+moment.locale('es');
+global.timestamp = moment().format('DD/MM/YYYY HH:mm:ss');// moment global para usar en cualquier lado sin importarla cada vez.
 
 //esta funcion no esta en uso, se uso encambio, la misma pero sincronica, directamente en el controller por cuestiones de implementacion de AUTH.
 exports.encriptarPassword = (password = '') => {

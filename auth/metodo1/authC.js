@@ -11,7 +11,9 @@ exports.register = (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   usuario.nuevo(req.body)
     .then(respuesta => {
-      respuesta[1][0].token = utils.createToken(req.body)
+      let token = utils.createToken(respuesta[1][0]);
+      respuesta[1][0] = {};
+      respuesta[1][0].token = token;
       res.json(respuesta)
     })
     .catch(error => {
@@ -29,7 +31,6 @@ exports.login = (req, res) => {
         let token = utils.createToken(respuesta[1][0])
         respuesta[1][0] = {};
         respuesta[1][0].token = token;
-        console.log('​exports.login -> respuesta', respuesta);
         return res.json(respuesta)
       } else {
         let err = [{ 'codigo': 0, 'mensaje': "Contraseña incorrecta" }]
