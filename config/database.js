@@ -4,8 +4,7 @@ var db = mysql.createPool({
     connectionLimit: 5,
     host: 'localhost',
     user: 'root',
-    // password: 'soporteit',
-    password: '',
+    password: 'Ingeit2017!',
     database: 'test',
     timezone: 'utc'
 });
