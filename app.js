@@ -12,13 +12,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-(process.env.NODE_ENV === 'production') ? app.use(morgan('short')) : app.use(morgan('env'));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(helmet());
+
+/***************  Logs Morgan ***********************/
+morgan.token('date', function(){
+  return timestamp;
+})
+app.use(morgan(':date - URL ":method :url :status" - ORIGEN ":remote-addr :remote-user" - RESLENGTH ":res[content-length]" - :response-time ms'))
+/****************************************************/
 
 /*************** response y Routas ******************/
 app.use(response);

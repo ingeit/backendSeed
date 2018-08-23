@@ -15,7 +15,6 @@ exports.nuevo = (params) => {
         ];
         db.query(sp_name, parametros)
             .then(res => {
-                console.log(timestamp, " Usuario registrado: ", JSON.stringify(res[1][0]))
                 resolve(res)
             })
             .catch(err => {
