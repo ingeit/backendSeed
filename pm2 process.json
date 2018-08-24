@@ -1,0 +1,15 @@
+{
+  "_comment": "Este es un archivo de procesos que maneja PM2 para poder setear configuraciones",
+  "_comment2": "Cualquier duda ir a la documentacion http://pm2.keymetrics.io/docs/usage/application-declaration/",
+  "apps" : [{
+    "name"        : "backendSeed",
+    "script"      : "/home/backend/bin/www",
+    "watch"       : true,
+    "env_production": {
+      "NODE_ENV": "production"
+    },
+    "env_development" : {
+       "NODE_ENV": "development"
+    }
+  }]
+}

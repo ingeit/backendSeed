@@ -1,3 +1,8 @@
+/* 
+Setear variables de entorno para NODEjs en CONSOLA:
+WINDOWS: set NODE_ENV=production
+UBUNTU: NODE_ENV=production o export NODE_ENV=production
+*/
 // var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
