@@ -11,7 +11,9 @@
   * [**Maquina virtual Ubuntu**](#maquina-virtual-ubuntu)
     + [**Usuarios**](#usuarios)
     + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
-    + [**Nginx**](#nginx)
+    + [**MySQL**](#mysql)
+    + [**NodeJS**](#nodejs)
+    + [**PM2 Process Manager**](#pm2-process-manager)
 - [**Licencia Autor:** Ricardo Bruno - Ingeit SA 2018](#licencia-autor-ricardo-bruno---ingeit-sa-2018)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Tabla de contenidos generada con markdown-toc</a></i></small>
