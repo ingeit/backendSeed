@@ -53,10 +53,12 @@ Backend listo para su uso con login y register para usuarios
     4.  ### Creación VM:
         
         + OS:
-        ![](./assets/VMOS.PNG)
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
 
             /var/lib/vz/template/iso
+            
+        ![](./assets/VMOS.PNG)
+        
 
         + Hard Disk:
         Setear las opciones como se muestra en la imagen
