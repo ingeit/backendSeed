@@ -53,18 +53,18 @@ Backend listo para su uso con login y register para usuarios
     4.  ### Creación VM:
         
         + OS:
-        ![Alt text](./assets/VMOS.png)
+        ![](./assets/VMOS.PNG)
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
 
             /var/lib/vz/template/iso
 
         + Hard Disk:
         Setear las opciones como se muestra en la imagen
-        ![Alt text](./assets/VMHardDisk.png)
+        ![](./assets/VMHardDisk.PNG)
 
         + Network:
         Setear las opciones como se muestra en la imagen
-        ![Alt text](./assets/VMNet.png)
+        ![](./assets/VMNet.PNG)
 
     5.  ### En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:
 
