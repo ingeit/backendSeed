@@ -418,10 +418,10 @@ Backend listo para su uso con login y register para usuarios
 
             Guardar un script para generar un proceso Daemon (mantiene el proceso activo siempre, incluso despues de reiniciar el servidor):
 
-                // Generate Startup Script 
+                // Generar script de inicio 
                 sudo pm2 startup
                 
-                // Freeze your process list across server restart 
+                // Guardar el script de lista de procesos para auto-ejecucion en los reinicios del sistema 
                 sudo pm2 save
 
             | *Nota:* Los comandos solo pueden ejecutarse bajo el permiso *sudo*. Estos procesos corren bajo la sesión del usuario que lo genero. Para generar un proceso global que todos los usuarios puedan gestionarlo, se debera ingresar con el Super User: *sudo su*
@@ -477,10 +477,10 @@ Backend listo para su uso con login y register para usuarios
 
             *   Guardar un script para generar un proceso Daemon (mantiene el proceso activo siempre, incluso despues de reiniciar el servidor):
 
-                    // Generate Startup Script 
+                    // Generar script de inicio 
                     sudo pm2 startup
                     
-                    // Freeze your process list across server restart 
+                    // Guardar el script de lista de procesos para auto-ejecucion en los reinicios del sistema 
                     sudo pm2 save
 
                 | *Nota:* Los comandos solo pueden ejecutarse bajo el permiso *sudo*. Estos procesos corren bajo la sesión del usuario que lo genero. Para generar un proceso global que todos los usuarios puedan gestionarlo, se debera ingresar con el Super User: *sudo su*
