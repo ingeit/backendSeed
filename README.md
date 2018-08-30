@@ -42,7 +42,7 @@ Backend listo para su uso con login y register para usuarios
             // Reinicia el servicio de Proxmox
                 systemctl restart pveproxy.service
 
-        | *NOTA:* No olvidar actualizar el cache del browser cliente (CTRL + F5)
+        | *Nota:* No olvidar actualizar el cache del browser cliente (CTRL + F5)
 
         | *Fuente:* https://johnscs.com/remove-proxmox51-subscription-notice/
 
@@ -69,7 +69,7 @@ Backend listo para su uso con login y register para usuarios
 
         Una vez finalizado lo anterior, volver al paso 1, borrar los certificados de ACME y volver a generarlos
         
-        | *NOTA:* para ver reflejados los cambios, ejecturar el siguiente comando:
+        | *Nota:* para ver reflejados los cambios, ejecturar el siguiente comando:
 
             systemctl restart pveproxy
 
@@ -125,13 +125,13 @@ Backend listo para su uso con login y register para usuarios
         
                 groups nombre_usuario
 
-            | *NOTA:* Mediante los grupos, se puede asignar a un usuario permisos de administrador
+            | *Nota:* Mediante los grupos, se puede asignar a un usuario permisos de administrador
 
         +   **Asignar todos los permisos de administracion a un usuario**
             
                 usermod -aG adm cdrom sudo dip plugdev lxd lpadmin sambashare nombre_usuario
             
-            | *NOTA:* Con el comando *usermod -aG groups nombre_usuario* modificamos los grupos perteneciantes a un usuario
+            | *Nota:* Con el comando *usermod -aG groups nombre_usuario* modificamos los grupos perteneciantes a un usuario
 
         +   **Asignar solo permisos de sudo (suficiente para que sea administrador)**
             
@@ -270,7 +270,7 @@ Backend listo para su uso con login y register para usuarios
                         }
                     }
 
-                | *NOTA:* Al ingresar a ejemplo.com/backend_1, se accedera al servicio de NodeJS que este corriendo en el puerto 3000. ejemplo.com/backend_2 redirecciona al puerto 3001.
+                | *Nota:* Al ingresar a ejemplo.com/backend_1, se accedera al servicio de NodeJS que este corriendo en el puerto 3000. ejemplo.com/backend_2 redirecciona al puerto 3001.
                 
                 **_Importante: No es necesario permitir en el firewall los puertos 3000 y 3001, dado que la redireccion es interna, desde la red publica solo se ingresa al servidor Nginx por el puerto 80 o 443, los cuales ya fueron permitidos en la instalacion._**
 
@@ -284,7 +284,7 @@ Backend listo para su uso con login y register para usuarios
 
                     sudo systemctl restart nginx
 
-                | *NOTA:* en caso de que no funcione la redireccion, ejecutar la siguiente linea
+                | *Nota:* en caso de que no funcione la redireccion, ejecutar la siguiente linea
 
                     sudo ln -s /etc/nginx/sites-available/ejemplo.com /etc/nginx/sites-enabled/
 
@@ -383,7 +383,7 @@ Backend listo para su uso con login y register para usuarios
 
                 systemctl status mysql.service
 
-        | *NOTA:* Para las conexiones remotas, utilizar tunel SSH y desde el cliente configurar las cuentas de usuarios correspondientes
+        | *Nota:* Para las conexiones remotas, utilizar tunel SSH y desde el cliente configurar las cuentas de usuarios correspondientes
 
         | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-16-04
 
@@ -394,7 +394,7 @@ Backend listo para su uso con login y register para usuarios
                 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
                 sudo apt-get install -y nodejs
 
-            | *NOTA:* Observar en la primera linea "setup_8.x". Esto indica que se instalara la version 8.x.x (LTS)
+            | *Nota:* Observar en la primera linea "setup_8.x". Esto indica que se instalara la version 8.x.x (LTS)
 
         | *Fuente:* https://nodejs.org/es/download/package-manager/
 
