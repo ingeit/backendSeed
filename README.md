@@ -68,7 +68,7 @@ Backend listo para su uso con login y register para usuarios
 
     3.  ### **Instalar certificado Let’s Encrypt - ACME**
         ![](/assets/certificadoProxmox.PNG)
-        
+
         Al crear el nuevo certificado en la sección ACME, tildar la opcion Accept TOS.
 
         Redirigir el trafico externo en el Router del puerto 80 al servidor Proxmox (Por las dudas, antes de hacer esto, probar si renueva el certificado).
@@ -489,12 +489,15 @@ Backend listo para su uso con login y register para usuarios
                         }]
                     }
 
-            *   Para entender la configuracion, leer documentacion: 
+                Para entender la configuracion, leer documentacion: 
 
                 http://pm2.keymetrics.io/docs/usage/application-declaration/
 
                 http://pm2.keymetrics.io/docs/usage/deployment/
 
+            *   Iniciar el script para montar los servicios correspondientes
+
+                    pm2 start pm2Daemon.json --env production
 
             *   Guardar un script para generar un proceso Daemon (mantiene el proceso activo siempre, incluso despues de reiniciar el servidor):
 
