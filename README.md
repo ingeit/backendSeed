@@ -15,6 +15,9 @@ Se implemento carpeta config, providers/utils
 
 Backend listo para su uso con login y register para usuarios
 
+# Configuración Proxmox y maquina virtual
+
+*   ## Proxmox:
 This is a normal paragraph:
 
     This is a code block.
