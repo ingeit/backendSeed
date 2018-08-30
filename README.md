@@ -12,7 +12,7 @@
     + [**Usuarios**](#usuarios)
     + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
     + [**Nginx**](#nginx)
-- [***Licencia Autor:*** Ricardo Bruno - Ingeit SA 2018](#licencia-autor-ricardo-bruno---ingeit-sa-2018)
+- [**Licencia Autor:** Ricardo Bruno - Ingeit SA 2018](#licencia-autor-ricardo-bruno---ingeit-sa-2018)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Tabla de contenidos generada con markdown-toc</a></i></small>
 
