@@ -5,14 +5,14 @@
   * [**Maquina fisica Proxmox:**](#maquina-fisica-proxmox)
     + [**Administracion WEB**](#administracion-web)
     + [**Eliminar mensaje de alerta de subscripcion**](#eliminar-mensaje-de-alerta-de-subscripcion)
-    + [**Instalar certificado Let’s Encrypt - ACME**](#instalar-certificado-let-s-encrypt---acme)
+    + [**Instalar certificado Let’s Encrypt - ACME**](#instalar-certificado-lets-encrypt---acme)
     + [**Restaurar certificados por defecto**](#restaurar-certificados-por-defecto)
     + [**Creación VM:**](#creación-vm)
   * [**Maquina virtual Ubuntu**](#maquina-virtual-ubuntu)
     + [**Usuarios**](#usuarios)
-    + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#shh--permitir-denegar-ingreso-remoto-a-usuarios)
+    + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
     + [**Nginx**](#nginx)
-- [***Licencia Autor:*** Ricardo Bruno - Ingeit SA 2018](#-autor-----ricardo-bruno---ingeit-sa-2018)
+- [***Licencia Autor:*** Ricardo Bruno - Ingeit SA 2018](#licencia-autor-ricardo-bruno---ingeit-sa-2018)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Tabla de contenidos generada con markdown-toc</a></i></small>
 
