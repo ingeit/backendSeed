@@ -1,8 +1,7 @@
-# ***INDICE***
 - [**backendSeed**](#--backendseed--)
 - [**Configuración Proxmox y maquina virtual**](#--configuraci-n-proxmox-y-maquina-virtual--)
   * [**Maquina fisica Proxmox:**](#--maquina-fisica-proxmox---)
-    + [**Administracion WEB: https://dominio:8006**](#--administracion-web--https---dominio-8006--)
+    + [**Administracion WEB**](#--administracion-web---)
     + [**Eliminar mensaje de alerta de subscripcion**](#--eliminar-mensaje-de-alerta-de-subscripcion--)
     + [**Instalar certificado Let’s Encrypt - ACME**](#--instalar-certificado-let-s-encrypt---acme--)
     + [**Restaurar certificados por defecto**](#--restaurar-certificados-por-defecto--)
@@ -11,7 +10,7 @@
     + [**Usuarios**](#--usuarios--)
     + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#--shh--permitir-denegar-ingreso-remoto-a-usuarios--)
     + [**Nginx**](#--nginx--)
-    + [***Autor:*** Ricardo Bruno - Ingeit SA 2018](#---autor-----ricardo-bruno---ingeit-sa-2018)
+- [***Licencia Autor:*** Ricardo Bruno - Ingeit SA 2018](#---autor-----ricardo-bruno---ingeit-sa-2018)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Tabla de contenidos generada con markdown-toc</a></i></small>
 
@@ -37,7 +36,9 @@ Backend listo para su uso con login y register para usuarios
 
 * ## **Maquina fisica Proxmox:**
 
-    1.  ### **Administracion WEB: https://dominio:8006**
+    1.  ### **Administracion WEB**
+    
+            https://dominio:8006
 
     2.  ### **Eliminar mensaje de alerta de subscripcion**
 
@@ -504,5 +505,5 @@ Backend listo para su uso con login y register para usuarios
                 | *Nota:* Los comandos solo pueden ejecutarse bajo el permiso *sudo*. Estos procesos corren bajo la sesión del usuario que lo genero. Para generar un proceso global que todos los usuarios puedan gestionarlo, se debera ingresar con el Super User: *sudo su*
 
 ---
-### ***Autor:*** Ricardo Bruno - Ingeit SA 2018
+***Licencia Autor:*** Ricardo Bruno - Ingeit SA 2018
 ---
