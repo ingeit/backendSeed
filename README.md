@@ -404,11 +404,90 @@ Backend listo para su uso con login y register para usuarios
 
                 npm install pm2 -g
 
-        *   **Iniciar una aplicacion y hacerla servicio** (Basico, no utilizado)
+        *   **Iniciar una aplicacion y hacerla servicio** (No recomendado)
 
-        *   **Iniciar archivos de entorno con x cantidad de aplicaciones y hacerlas servicio** (Recomendado)
+            *Como ejemplo se tomara un servicio de ExpressJS situado en la carpeta **/home/backend** en donde el servicio se inicia mediante el comando.*
+
+                npm start
+                // o su equivalente
+                npm /bin/www
+
+            Iniciar el servicio mediante PM2:
+
+                sudo pm2 start /bin/www --name nombre_servicio
+
+            Guardar un script para generar un proceso Daemon (mantiene el proceso activo siempre, incluso despues de reiniciar el servidor):
+
+                // Generate Startup Script 
+                sudo pm2 startup
+                
+                // Freeze your process list across server restart 
+                sudo pm2 save
+
+            | *Nota:* Los comandos solo pueden ejecutarse bajo el permiso *sudo*. Estos procesos corren bajo la sesión del usuario que lo genero. Para generar un proceso global que todos los usuarios puedan gestionarlo, se debera ingresar con el Super User: *sudo su*
+
+            | *Fuente 1:* https://www.npmjs.com/package/pm2
+
+            | *Fuente 2:* http://pm2.keymetrics.io/docs/usage/quick-start/
+
+        *   **Iniciar archivos de entorno con N cantidad de aplicaciones y hacerlas servicio** (Recomendado)
+
+            *   *Como ejemplo se tomaran dos servicios de ExpressJS situados en las carpetas **/home/backend_1** y **/home/backend_2** y un archivo de entorno ubicado en **/home/pm2Daemon.json*** 
+
+            *   Crear el archivo 
+            
+                sudo /home/pm2Daemon.json
+            
+            *   Copiar lo siguiente
+
+                    {
+                    "apps": [
+                        {
+                            // Aplicacion 1 ExpressJS
+                            "name": "aplicacion1",
+                            "script": "/home/backend_1/bin/www",
+                            "watch": true,
+                            "env_production": {
+                                "NODE_ENV": "production"
+                            },
+                            "env_development": {
+                                "NODE_ENV": "development"
+                            }
+                        },
+                        {
+                            // Aplicacion 2 ExpressJS
+                            "name": "aplicacion2",
+                            "script": "/home/backend_2/bin/www",
+                            "watch": true,
+                            "env_production": {
+                                "NODE_ENV": "production"
+                            },
+                            "env_development": {
+                                "NODE_ENV": "development"
+                            }
+                        }]
+                    }
+
+            *   Para entender la configuracion, leer documentacion: 
+
+                http://pm2.keymetrics.io/docs/usage/application-declaration/
+
+                http://pm2.keymetrics.io/docs/usage/deployment/
 
 
+            *   Guardar un script para generar un proceso Daemon (mantiene el proceso activo siempre, incluso despues de reiniciar el servidor):
+
+                    // Generate Startup Script 
+                    sudo pm2 startup
+                    
+                    // Freeze your process list across server restart 
+                    sudo pm2 save
+
+                | *Nota:* Los comandos solo pueden ejecutarse bajo el permiso *sudo*. Estos procesos corren bajo la sesión del usuario que lo genero. Para generar un proceso global que todos los usuarios puedan gestionarlo, se debera ingresar con el Super User: *sudo su*
+
+---
+### *Autor:* Ricardo Bruno - Ingeit SA 2018
+---
 
 
 
