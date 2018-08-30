@@ -10,7 +10,7 @@
     + [**Creación VM:**](#creación-vm)
   * [**Maquina virtual Ubuntu**](#maquina-virtual-ubuntu)
     + [**Usuarios**](#usuarios)
-    + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
+    + [**SHH**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
     + [**Nginx**](#nginx)
     + [**MySQL**](#mysql)
     + [**NodeJS**](#nodejs)
@@ -161,9 +161,11 @@ Backend listo para su uso con login y register para usuarios
             
                 usermod -aG sudo nombre_usuario
 
-    2.  ### **SHH: Permitir/Denegar ingreso remoto a usuarios**
+    2.  ### **SHH**
+        
+        *   **Permitir/Denegar ingreso remoto a usuarios**
 
-        *   **Editar el archivo**
+            **Editar el archivo**
 
             **sudo nano /etc/ssh/sshd_config** 
             
