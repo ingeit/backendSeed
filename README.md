@@ -11,6 +11,7 @@
   * [**Maquina virtual Ubuntu**](#maquina-virtual-ubuntu)
     + [**Usuarios**](#usuarios)
     + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
+    + [**Nginx**](#nginx)
     + [**MySQL**](#mysql)
     + [**NodeJS**](#nodejs)
     + [**PM2 Process Manager**](#pm2-process-manager)
