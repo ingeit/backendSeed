@@ -16,7 +16,7 @@ Se implemento carpeta config, providers/utils
 Backend listo para su uso con login y register para usuarios
 
 # Configuración Proxmox y maquina virtual
-<!-- 
+
 * ## Maquina fisica Proxmox:
 
     1.  ### Administracion WEB: https://dominio:8006
@@ -75,7 +75,7 @@ Backend listo para su uso con login y register para usuarios
             HandleLidSwitch=ignore
 
             // resetear el servicio de energia
-            service systemd-logind restart -->
+            service systemd-logind restart
 
 * ## **Maquina virtual Ubuntu**
 
