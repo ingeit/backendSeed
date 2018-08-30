@@ -21,7 +21,32 @@ Backend listo para su uso con login y register para usuarios
 
     1.  ### Administracion WEB: https://dominio:8006
 
-    2.  ### Instalar certificado Let’s Encrypt - ACME
+    2.  ### Eliminar mensaje de alerta de subscripcion
+
+        Para eliminar el mensaje "You do not have a valid subscription for this server" ejecturar el siguiente comando en una sola linea
+
+            sed -i.bak "s/data.status !== 'Active'/false/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+
+        Para entender un poco lo que hace este comando:
+
+            // Cambia el directorio de trabajo
+                cd /usr/share/javascript/proxmox-widget-toolkit
+            // Respalda el archivo
+                cp proxmoxlib.js proxmoxlib.js.bak
+            // Edita el archivo
+                nano proxmoxlib.js
+            // Localiza la linea dentro del archivo (usar ctrl+w en nano)
+                if (data.status !== 'Active') {
+            // Remplaza la linea con lo siguiente
+                if (false) {
+            // Reinicia el servicio de Proxmox
+                systemctl restart pveproxy.service
+
+        | *NOTA:* No olvidar actualizar el cache del browser cliente (CTRL + F5)
+
+        | *Fuente:* https://johnscs.com/remove-proxmox51-subscription-notice/
+
+    3.  ### Instalar certificado Let’s Encrypt - ACME
         ![](/assets/certificadoProxmox.PNG)
         Al crear el nuevo certificado en la sección ACME, tildar la opcion Accept TOS.
 
@@ -29,7 +54,7 @@ Backend listo para su uso con login y register para usuarios
 
         En caso de problemas, seguir estos pasos para agrear al navegador el certificado por defecto provisto por Proxmox: https://pve.proxmox.com/wiki/Import_certificate_in_browser
 
-    3.  ### Restaurar certificados por defecto
+    4.  ### Restaurar certificados por defecto
 
             // eliminar estos archivos
             rm /etc/pve/pve-root-ca.pem
@@ -44,13 +69,13 @@ Backend listo para su uso con login y register para usuarios
 
         Una vez finalizado lo anterior, volver al paso 1, borrar los certificados de ACME y volver a generarlos
         
-        *NOTA:* para ver reflejados los cambios, ejecturar el siguiente comando:
+        | *NOTA:* para ver reflejados los cambios, ejecturar el siguiente comando:
 
             systemctl restart pveproxy
 
-        *Fuente:* https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x,_5.0_and_5.1)
+        | *Fuente:* https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x,_5.0_and_5.1)
 
-    4.  ### Creación VM:
+    5.  ### Creación VM:
         
         + OS:
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
@@ -67,7 +92,7 @@ Backend listo para su uso con login y register para usuarios
         Setear las opciones como se muestra en la imagen
         ![](./assets/VMNet.PNG)
 
-    5.  ### En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:
+    6.  ### En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:
 
             // editar archivo
             nano /etc/systemd/logind.conf
@@ -94,19 +119,19 @@ Backend listo para su uso con login y register para usuarios
                 // eliminar solo el usuario
                 sudo deluser nombre_usuario
 
-            *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-16-04 
+            | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-16-04 
 
         +   **Mostrar grupos al que pertenece**
         
                 groups nombre_usuario
 
-            *NOTA:* Mediante los grupos, se puede asignar a un usuario permisos de administrador
+            | *NOTA:* Mediante los grupos, se puede asignar a un usuario permisos de administrador
 
         +   **Asignar todos los permisos de administracion a un usuario**
             
                 usermod -aG adm cdrom sudo dip plugdev lxd lpadmin sambashare nombre_usuario
             
-            *NOTA:* Con el comando *usermod -aG groups nombre_usuario* modificamos los grupos perteneciantes a un usuario
+            | *NOTA:* Con el comando *usermod -aG groups nombre_usuario* modificamos los grupos perteneciantes a un usuario
 
         +   **Asignar solo permisos de sudo (suficiente para que sea administrador)**
             
@@ -114,7 +139,8 @@ Backend listo para su uso con login y register para usuarios
 
     2.  ### **SHH: Permitir/Denegar ingreso remoto a usuarios**
 
-        *   ### Editar el archivo 
+        *   **Editar el archivo**
+
             **sudo nano /etc/ssh/sshd_config** 
             
             y agregar las siguientes lineas segun necesidad
@@ -128,13 +154,13 @@ Backend listo para su uso con login y register para usuarios
                 // permitir ingreso a usuarios especificos (separados con espacio)
                 AllowUsers usuario1 usuario2
 
-        *   ### Guardar el archivo y resetar el servicio SSH
+        *   **Guardar el archivo y resetar el servicio SSH**
 
                 sudo service ssh restart
 
-            *Fuente:* https://www.ostechnix.com/allow-deny-ssh-access-particular-user-group-linux/
+            | *Fuente:* https://www.ostechnix.com/allow-deny-ssh-access-particular-user-group-linux/
 
-        *   ### Abrir puertos firewall
+        *   **Abrir puertos firewall**
 
                 sudo ufw app list
 
@@ -151,12 +177,12 @@ Backend listo para su uso con login y register para usuarios
 
     3.  ### **Nginx**
 
-        *   ### Instalación
+        *   **Instalación**
 
                 sudo apt-get update
                 sudo apt-get install nginx
 
-            *  ### Ajuste firewall
+            *  **Ajuste firewall**
 
                 sudo ufw app list
 
@@ -185,7 +211,7 @@ Backend listo para su uso con login y register para usuarios
                         OpenSSH (v6)               ALLOW       Anywhere (v6)             
                         Nginx Full (v6)            ALLOW       Anywhere (v6)
 
-            *   ### Comandos útiles
+            *   **Comandos útiles**
 
                     // verificar el estado del servicio
                         systemctl status nginx
@@ -202,13 +228,13 @@ Backend listo para su uso con login y register para usuarios
                     // habilitar servicio de inicio automatico
                         sudo systemctl enable nginx
 
-            *Fuente:* https://www.digitalocean.com/community/tutorials/como-instalar-nginx-en-ubuntu-16-04-es
+            | *Fuente:* https://www.digitalocean.com/community/tutorials/como-instalar-nginx-en-ubuntu-16-04-es
 
-        * ### Agregar virtual host para servir paginas web (no es necesario para nuestra arquitectura)
+        *   **Agregar virtual host para servir paginas web (no es necesario para nuestra arquitectura)**
 
-            *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04
+            | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04
 
-        * ### Reverse Proxy
+        *   **Reverse Proxy**
 
             *   Generar un archivo de "Server Block"
 
@@ -244,7 +270,7 @@ Backend listo para su uso con login y register para usuarios
                         }
                     }
 
-                *NOTA:* Al ingresar a ejemplo.com/backend_1, se accedera al servicio de NodeJS que este corriendo en el puerto 3000. ejemplo.com/backend_2 redirecciona al puerto 3001.
+                | *NOTA:* Al ingresar a ejemplo.com/backend_1, se accedera al servicio de NodeJS que este corriendo en el puerto 3000. ejemplo.com/backend_2 redirecciona al puerto 3001.
                 
                 **_Importante: No es necesario permitir en el firewall los puertos 3000 y 3001, dado que la redireccion es interna, desde la red publica solo se ingresa al servidor Nginx por el puerto 80 o 443, los cuales ya fueron permitidos en la instalacion._**
 
@@ -258,14 +284,14 @@ Backend listo para su uso con login y register para usuarios
 
                     sudo systemctl restart nginx
 
-                *NOTA:* en caso de que no funcione la redireccion, ejecutar la siguiente linea
+                | *NOTA:* en caso de que no funcione la redireccion, ejecutar la siguiente linea
 
                     sudo ln -s /etc/nginx/sites-available/ejemplo.com /etc/nginx/sites-enabled/
 
-            *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04#set-up-reverse-proxy-server
+            | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04#set-up-reverse-proxy-server
 
 
-        *   ### Configurar Let's Encrypt con Certbot
+        *   **Configurar Let's Encrypt con Certbot**
 
             *   Instalar Certbot
 
@@ -338,9 +364,49 @@ Backend listo para su uso con login y register para usuarios
 
                 No deberia mostrar errores.
 
-            *Fuente:* https://www.digitalocean.com/community/tutorials/como-asegurar-nginx-con-let-s-encrypt-en-ubuntu-18-04-es
+            | *Fuente:* https://www.digitalocean.com/community/tutorials/como-asegurar-nginx-con-let-s-encrypt-en-ubuntu-18-04-es
 
+    4. ### **MySQL**
 
+        *   **Instalación**
+
+                sudo apt-get update
+                sudo apt-get install mysql-server
+
+        *   **Configurar instalacion segura**
+
+                mysql_secure_installation
+
+            Seguir los pasos y elegir las opciones necesarias
+
+        *   **Corroborar servicio MySQL**
+
+                systemctl status mysql.service
+
+        | *NOTA:* Para las conexiones remotas, utilizar tunel SSH y desde el cliente configurar las cuentas de usuarios correspondientes
+
+        | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-16-04
+
+    5. ### **NodeJS**
+
+        *   **Instalación**
+
+                curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+                sudo apt-get install -y nodejs
+
+            | *NOTA:* Observar en la primera linea "setup_8.x". Esto indica que se instalara la version 8.x.x (LTS)
+
+        | *Fuente:* https://nodejs.org/es/download/package-manager/
+
+    6. ### **PM2 Process Manager**
+
+        *   **Instalación**
+
+                npm install pm2 -g
+
+        *   **Iniciar una aplicacion y hacerla servicio** (Basico, no utilizado)
+
+        *   **Iniciar archivos de entorno con x cantidad de aplicaciones y hacerlas servicio** (Recomendado)
 
 
 
