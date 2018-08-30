@@ -68,6 +68,7 @@ Backend listo para su uso con login y register para usuarios
 
     3.  ### **Instalar certificado Let’s Encrypt - ACME**
         ![](/assets/certificadoProxmox.PNG)
+        
         Al crear el nuevo certificado en la sección ACME, tildar la opcion Accept TOS.
 
         Redirigir el trafico externo en el Router del puerto 80 al servidor Proxmox (Por las dudas, antes de hacer esto, probar si renueva el certificado).
