@@ -1,4 +1,21 @@
-# backendSeed
+- [**backendSeed**](#--backendseed--)
+- [**Configuración Proxmox y maquina virtual**](#--configuraci-n-proxmox-y-maquina-virtual--)
+  * [**Maquina fisica Proxmox:**](#--maquina-fisica-proxmox---)
+    + [**Administracion WEB: https://dominio:8006**](#--administracion-web--https---dominio-8006--)
+    + [**Eliminar mensaje de alerta de subscripcion**](#--eliminar-mensaje-de-alerta-de-subscripcion--)
+    + [**Instalar certificado Let’s Encrypt - ACME**](#--instalar-certificado-let-s-encrypt---acme--)
+    + [**Restaurar certificados por defecto**](#--restaurar-certificados-por-defecto--)
+    + [**Creación VM:**](#--creaci-n-vm---)
+  * [**Maquina virtual Ubuntu**](#--maquina-virtual-ubuntu--)
+    + [**Usuarios**](#--usuarios--)
+    + [**SHH: Permitir/Denegar ingreso remoto a usuarios**](#--shh--permitir-denegar-ingreso-remoto-a-usuarios--)
+    + [**Nginx**](#--nginx--)
+    + [***Autor:*** Ricardo Bruno - Ingeit SA 2018](#---autor-----ricardo-bruno---ingeit-sa-2018)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Tabla de contenidos generada con markdown-toc</a></i></small>
+
+
+# **backendSeed**
 
 Backend con Express 4
 Se implemento un modelo base de Usuario para su CRUD
@@ -15,13 +32,13 @@ Se implemento carpeta config, providers/utils
 
 Backend listo para su uso con login y register para usuarios
 
-# Configuración Proxmox y maquina virtual
+# **Configuración Proxmox y maquina virtual**
 
-* ## Maquina fisica Proxmox:
+* ## **Maquina fisica Proxmox:**
 
-    1.  ### Administracion WEB: https://dominio:8006
+    1.  ### **Administracion WEB: https://dominio:8006**
 
-    2.  ### Eliminar mensaje de alerta de subscripcion
+    2.  ### **Eliminar mensaje de alerta de subscripcion**
 
         Para eliminar el mensaje "You do not have a valid subscription for this server" ejecturar el siguiente comando en una sola linea
 
@@ -46,7 +63,7 @@ Backend listo para su uso con login y register para usuarios
 
         | *Fuente:* https://johnscs.com/remove-proxmox51-subscription-notice/
 
-    3.  ### Instalar certificado Let’s Encrypt - ACME
+    3.  ### **Instalar certificado Let’s Encrypt - ACME**
         ![](/assets/certificadoProxmox.PNG)
         Al crear el nuevo certificado en la sección ACME, tildar la opcion Accept TOS.
 
@@ -54,7 +71,7 @@ Backend listo para su uso con login y register para usuarios
 
         En caso de problemas, seguir estos pasos para agrear al navegador el certificado por defecto provisto por Proxmox: https://pve.proxmox.com/wiki/Import_certificate_in_browser
 
-    4.  ### Restaurar certificados por defecto
+    4.  ### **Restaurar certificados por defecto**
 
             // eliminar estos archivos
             rm /etc/pve/pve-root-ca.pem
@@ -75,24 +92,24 @@ Backend listo para su uso con login y register para usuarios
 
         | *Fuente:* https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x,_5.0_and_5.1)
 
-    5.  ### Creación VM:
+    5.  ### **Creación VM:**
         
-        + OS:
+        + **OS:**
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
 
             /var/lib/vz/template/iso
         ![](./assets/VMOS.PNG)
         
 
-        + Hard Disk:
+        + **Hard Disk:**
         Setear las opciones como se muestra en la imagen
         ![](./assets/VMHardDisk.PNG)
 
-        + Network:
+        + **Network:**
         Setear las opciones como se muestra en la imagen
         ![](./assets/VMNet.PNG)
 
-    6.  ### En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:
+    6.  ### **En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:**
 
             // editar archivo
             nano /etc/systemd/logind.conf
@@ -486,19 +503,5 @@ Backend listo para su uso con login y register para usuarios
                 | *Nota:* Los comandos solo pueden ejecutarse bajo el permiso *sudo*. Estos procesos corren bajo la sesión del usuario que lo genero. Para generar un proceso global que todos los usuarios puedan gestionarlo, se debera ingresar con el Super User: *sudo su*
 
 ---
-### *Autor:* Ricardo Bruno - Ingeit SA 2018
+### ***Autor:*** Ricardo Bruno - Ingeit SA 2018
 ---
-
-
-
-
-
-        
-
-        
-        
-
-            
-
-
-        
