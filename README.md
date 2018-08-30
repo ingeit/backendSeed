@@ -15,7 +15,6 @@ Se implemento carpeta config, providers/utils
 
 Backend listo para su uso con login y register para usuarios
 
-I strongly recommend against using any `<blink>` tags.
+This is a normal paragraph:
 
-I wish SmartyPants used named entities like `&mdash;`
-instead of decimal-encoded entites like `&#8212;`.
+    This is a code block.
