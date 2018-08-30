@@ -56,7 +56,6 @@ Backend listo para su uso con login y register para usuarios
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
 
             /var/lib/vz/template/iso
-            
         ![](./assets/VMOS.PNG)
         
 
