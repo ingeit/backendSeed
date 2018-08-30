@@ -10,7 +10,7 @@
     + [**Creación VM:**](#creación-vm)
   * [**Maquina virtual Ubuntu**](#maquina-virtual-ubuntu)
     + [**Usuarios**](#usuarios)
-    + [**SHH**](#shh-permitir-denegar-ingreso-remoto-a-usuarios)
+    + [**SHH**](#shh)
     + [**Nginx**](#nginx)
     + [**MySQL**](#mysql)
     + [**NodeJS**](#nodejs)
