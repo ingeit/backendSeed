@@ -100,7 +100,7 @@ Backend listo para su uso con login y register para usuarios
 
         | *Fuente:* https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x,_5.0_and_5.1)
 
-    5.  ### **Creación VM:**
+    5.  ### **Creación VM**
         
         + **OS:**
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
@@ -117,7 +117,7 @@ Backend listo para su uso con login y register para usuarios
         Setear las opciones como se muestra en la imagen
         ![](./assets/VMNet.PNG)
 
-    6.  ### **Backup VM:**
+    6.  ### **Backup VM**
 
         +   **Crear backup:** (ver imagen)
 
