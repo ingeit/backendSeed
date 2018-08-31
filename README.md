@@ -170,6 +170,8 @@ Backend listo para su uso con login y register para usuarios
 
                 | *Nota:* Para ejecutar todos los comandos vistos, debemos situarnos en donde se descargo el archivo gdrive-linux-x64, en nuestro caso ***/home/***. Por otra parte, parent_id se obtiene con el comando ./gdrive-linux-x64 list
 
+            | *Fuente:* https://www.howtoforge.com/tutorial/how-to-access-google-drive-from-linux-gdrive/    
+
         ---
 
         ### **En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:**
