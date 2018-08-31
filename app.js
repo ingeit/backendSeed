@@ -24,7 +24,7 @@ app.use(cors());
 app.use(helmet());
 
 /***************  Logs Morgan ***********************/
-morgan.token('date', function(){
+morgan.token('date', function () {
   return timestamp;
 })
 app.use(morgan(':date - URL ":method :url :status" - ORIGEN ":remote-addr :remote-user" - RESLENGTH ":res[content-length]" - :response-time ms'))
@@ -32,6 +32,8 @@ app.use(morgan(':date - URL ":method :url :status" - ORIGEN ":remote-addr :remot
 
 /*************** response y Routas ******************/
 app.use(response);
+// habiltiamos CORS OPTIONS al servidor
+app.options('*', cors())
 app.use('/api', apiRouter);
 //Propia
 app.use((req, res) => {
