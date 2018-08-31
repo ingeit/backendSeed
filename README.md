@@ -8,6 +8,7 @@
     + [**Instalar certificado Let’s Encrypt - ACME**](#instalar-certificado-lets-encrypt---acme)
     + [**Restaurar certificados por defecto**](#restaurar-certificados-por-defecto)
     + [**Creación VM:**](#creación-vm)
+    + [**Backup VM:**](#backup-vm)
   * [**Maquina virtual Ubuntu**](#maquina-virtual-ubuntu)
     + [**Usuarios**](#usuarios)
     + [**SHH**](#shh)
@@ -116,7 +117,62 @@ Backend listo para su uso con login y register para usuarios
         Setear las opciones como se muestra en la imagen
         ![](./assets/VMNet.PNG)
 
-    6.  ### **En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:**
+    6.  ### **Backup VM:**
+
+        +   **Crear backup:** (ver imagen)
+
+            +   En el panel izquierdo, seleccionar la VM deseada
+            +   En el panel central, menu izquierdo, seleccionar la opción "Backup"
+            +   En el panel central, seleccionar Backup now
+            ![](./assets/backup1.PNG)
+            +   Elegir las siguientes opciones (recomendadas) y hacer clic en el boton "Backup"
+            ![](./assets/backup2.PNG)
+            +   Listo. Un backup genera un archivo de tipo ***.log*** y otro de tipo ***.vma.gz*** (backup en cuestión). Estos archivos se encuentran en la carpeta ***var/lib/vz/dump***
+
+        +   **Subir backup a Google Drive:**
+            
+            +   Para estos pasos, usaremos un programa de tercero ***"Gdrive"*** del repositorio oficial: https://github.com/prasmussen/gdrive
+
+                Descargar el archivo correspondiente segun SO (en nuestro caso ***gdrive-linux-x64*** ) al directorio ***/home***
+
+                |*Nota:* en caso de bajar el archivo desde la terminal con el comando wget "url..." notar que el nombre del archivo descargado no corresponde con el anterior descripto. En ese caso, cambiar el nombre al correspondiente: ***gdrive-linux-x64*** ya que en esta guia, usaremos ese nombre para la ejecución de comandos
+
+            +   Una vez descargado, nos aseguramos que el archivo tenga los permisos correspondientes
+
+                    chmod +x gdrive-linux-386
+
+            +   Ahora ejecutamos ***gdrive-linux-x64*** para asociarlo a nuestra cuenta de Google Drive
+
+                    ./gdrive-linux-386 about
+
+            +   Al ejecutar el codigo, este nos pedira que ingresemos a una url, copiamos y pegamos la misma en un navegador.
+                ![](./assets/gdrive1.PNG)
+
+            +   Una vez en el navegador, Google Drive nos pedira que autorizemos a Gdrive para usar nuestra cuenta. Permitimos este acceso con el boton ***Allow***
+             ![](./assets/gdrive2.PNG)
+
+            +   Al permitir este ingreso, Gdrive generara un token, el cual debemos ingresar en la terminal en donde ejecutamos ***gdrive-linux-x64***
+
+            +   **Lista de comandos:**
+
+                    // Listar contenido y directorios de Google Drive
+                        ./gdrive-linux-x64 list
+
+                    // Subir un archivo
+                        ./gdrive-linux-x64 upload /path/file_name
+
+                    // Subir un archivo a una carpeta especifica en Google Drive
+                        ./gdrive-linux-x64 upload --parent parent_id /path/file_name
+                    
+                Para este ejemplo, debemos usar el comando de la siguiente manera: (ya que el archivo lo subimos a una carpeta dentro de la raiz de Google Drive) 
+
+                    ./gdrive-linux-x64 upload --parent CODIGO_ID /var/lib/vz/dump/vzdump-qemu-"ID_VM-FECHA_CREACION_BACKUP".vma.gz
+
+                | *Nota:* Para ejecutar todos los comandos vistos, debemos situarnos en donde se descargo el archivo gdrive-linux-x64, en nuestro caso ***/home/***. Por otra parte, parent_id se obtiene con el comando ./gdrive-linux-x64 list
+
+        ---
+
+        ### **En caso de montar el servidor de prueba en una notebook, deshabilitar la suspencion al cerrar la tapa de la misma de la siguiente manera:**
 
             // editar archivo
             nano /etc/systemd/logind.conf
@@ -125,7 +181,10 @@ Backend listo para su uso con login y register para usuarios
             HandleLidSwitch=ignore
 
             // resetear el servicio de energia
-            service systemd-logind restart
+            service systemd-logind restart  
+
+---
+--- 
 
 * ## **Maquina virtual Ubuntu**
 
