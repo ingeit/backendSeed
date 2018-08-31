@@ -4,6 +4,7 @@
 - [**Configuración Proxmox y maquina virtual**](#configuración-proxmox-y-maquina-virtual)
   * [**Maquina fisica Proxmox:**](#maquina-fisica-proxmox)
     + [**Administracion WEB**](#administracion-web)
+    + [**Configurar el repositorio de actualizacion**](#configurar-el-repositorio-de-actualizacion)
     + [**Eliminar mensaje de alerta de subscripcion**](#eliminar-mensaje-de-alerta-de-subscripcion)
     + [**Instalar certificado Let’s Encrypt - ACME**](#instalar-certificado-lets-encrypt---acme)
     + [**Restaurar certificados por defecto**](#restaurar-certificados-por-defecto)
@@ -45,7 +46,31 @@ Backend listo para su uso con login y register para usuarios
     
             https://dominio:8006
 
-    2.  ### **Eliminar mensaje de alerta de subscripcion**
+    2.  ### **Configurar el repositorio de actualizacion sin subscripcion**
+
+        Este comando es el que luego usaran las maquinas virtuales para ejecutar el comand ***apt-get update*** para actualizar sus dependencias.
+
+        Las VM lo hacen de manera automática y darán error al intentar ejecutar dicho comando. Para solucionar este problema, hacer lo siguiente:
+
+        +   Editar el archivo
+
+                nano /etc/apt/sources.list
+
+        +   Agregar las lineas y guardar los cambios
+
+                deb http://ftp.debian.org/debian stretch main contrib
+
+                # PVE pve-no-subscription repository provided by proxmox.com,
+                # NOT recommended for production use
+                deb http://download.proxmox.com/debian/pve stretch pve-no-subscription
+
+                # security updates
+                deb http://security.debian.org stretch/updates main contrib
+
+
+        | *Fuente:* https://pve.proxmox.com/wiki/Package_Repositories#Proxmox_VE_No-Subscription_Repository
+    
+    3.  ### **Eliminar mensaje de alerta de subscripcion**
 
         Para eliminar el mensaje "You do not have a valid subscription for this server" ejecturar el siguiente comando en una sola linea
 
@@ -70,7 +95,7 @@ Backend listo para su uso con login y register para usuarios
 
         | *Fuente:* https://johnscs.com/remove-proxmox51-subscription-notice/
 
-    3.  ### **Instalar certificado Let’s Encrypt - ACME**
+    4.  ### **Instalar certificado Let’s Encrypt - ACME**
         ![](/assets/certificadoProxmox.PNG)
 
         Al crear el nuevo certificado en la sección ACME, tildar la opcion Accept TOS.
@@ -79,7 +104,7 @@ Backend listo para su uso con login y register para usuarios
 
         En caso de problemas, seguir estos pasos para agrear al navegador el certificado por defecto provisto por Proxmox: https://pve.proxmox.com/wiki/Import_certificate_in_browser
 
-    4.  ### **Restaurar certificados por defecto**
+    5.  ### **Restaurar certificados por defecto**
 
             // eliminar estos archivos
             rm /etc/pve/pve-root-ca.pem
@@ -100,7 +125,7 @@ Backend listo para su uso con login y register para usuarios
 
         | *Fuente:* https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x,_5.0_and_5.1)
 
-    5.  ### **Creación VM**
+    6.  ### **Creación VM**
         
         + **OS:**
         Para poder listar las imagenes ISO en el menu de la imagen hay que copiarlas en el siguiente directorio:
@@ -117,7 +142,7 @@ Backend listo para su uso con login y register para usuarios
         Setear las opciones como se muestra en la imagen
         ![](./assets/VMNet.PNG)
 
-    6.  ### **Backup VM**
+    7.  ### **Backup VM**
 
         +   **Crear backup:** (ver imagen)
 
