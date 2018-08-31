@@ -20,7 +20,7 @@
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Tabla de contenidos generada con markdown-toc</a></i></small>
 
-# **backendSeed**
+# **ExpressJS**
 
 Backend con Express 4
 Se implemento un modelo base de Usuario para su CRUD
