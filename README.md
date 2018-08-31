@@ -4,7 +4,7 @@
 - [**Configuración Proxmox y maquina virtual**](#configuración-proxmox-y-maquina-virtual)
   * [**Maquina fisica Proxmox:**](#maquina-fisica-proxmox)
     + [**Administracion WEB**](#administracion-web)
-    + [**Configurar el repositorio de actualizacion**](#configurar-el-repositorio-de-actualizacion)
+    + [**Configurar el repositorio de actualizacion**](#configurar-el-repositorio-de-actualizacion-sin-subscripcion)
     + [**Eliminar mensaje de alerta de subscripcion**](#eliminar-mensaje-de-alerta-de-subscripcion)
     + [**Instalar certificado Let’s Encrypt - ACME**](#instalar-certificado-lets-encrypt---acme)
     + [**Restaurar certificados por defecto**](#restaurar-certificados-por-defecto)
