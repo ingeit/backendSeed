@@ -3,7 +3,7 @@
 
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-var enviroment_var = require('../config/enviroment_var');
+var environment_var = require('../config/environment_var');
 global.moment = require('moment');
 moment.locale('es');
 global.timestamp = moment().format('DD/MM/YYYY HH:mm:ss');// moment global para usar en cualquier lado sin importarla cada vez.
@@ -37,12 +37,12 @@ exports.createToken = (usuario) => {
         mail: usuario.mail
     };
     let expires = { expiresIn: '1m' }
-    return jwt.sign(payload, enviroment_var.secret_key, expires);
+    return jwt.sign(payload, environment_var.secret_key, expires);
 };
 
 exports.verifyToken = (token) => {
     return new Promise((resolve, reject) => {
-        jwt.verify(token, enviroment_var.secret_key, function (err, decoded) {
+        jwt.verify(token, environment_var.secret_key, function (err, decoded) {
             if (err) return reject(err)
             // console.log('time left:', decoded.exp - Math.floor(Date.now()/1000));
             return resolve(decoded)
