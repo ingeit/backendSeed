@@ -392,13 +392,20 @@ Backend listo para su uso con login y register para usuarios
                 
                     sudo nginx -t
 
-                Si no se encontraron problemas, reiniciar el servicio para aceptar los cambios
+                Si no se encontraron problemas:
+
+                    // copiar el achivo de configuracion a los sitios habilitados
+                    sudo ln -s /etc/nginx/sites-available/ejemplo.com /etc/nginx/sites-enabled/ejemplo.com
+
+                    // eliminar los archivos de configuracion no utilizados de los sitios habilitados
+                    sudo unlink /etc/nginx/sites-enabled/default
+
+                | *Nota:* esto sirve para habilitar el archivo de configuracion ya que Nginx ejecuta el contenido de ***sites-enabled***. Ademas, los sitios no usados como el que viene por defecto ***default*** habria que eliminarlo de la carpeta ***enabled*** para que no haya colisiones de ***reverse-proxy***
+                
+
+                Listo. Reiniciar el servicio para aceptar los cambios
 
                     sudo systemctl restart nginx
-
-                | *Nota:* en caso de que no funcione la redireccion, ejecutar la siguiente linea
-
-                    sudo ln -s /etc/nginx/sites-available/ejemplo.com /etc/nginx/sites-enabled/
 
             | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04#set-up-reverse-proxy-server
 
