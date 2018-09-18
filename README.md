@@ -344,13 +344,42 @@ Backend listo para su uso con login y register para usuarios
 
         *   **Agregar virtual host para servir paginas web (no es necesario para nuestra arquitectura)**
 
+            *   Servir aplicaciones en diferentes URL
+
+                Generar el archivo Server Block:
+
+                **sudo nano /etc/nginx/sites-available/ejemplo.com**
+
+                    // agregar lo siguiente
+                    
+                    server {
+                        listen 80;
+
+                        #Hay que poner todas las aplicacioens en el siguiente directorio y ademas será el directorio root
+                        root /var/www; 
+                        server_name ejemplo.com;
+
+                        # Esta app se inicia desde la URL raiz.
+                        location / {
+                            alias /var/www/app1/;
+                            try_files $uri$args $uri$args/ $uri/ /app1/index.html;	
+                        }
+
+                        location /app2/ {
+                            alias /var/www/app2/;
+                            try_files $uri$args $uri$args/ $uri/ /app2/index.html;
+                        }
+
+                        location /app3/ {
+                            alias /var/www/app3/;
+                            try_files $uri$args $uri$args/ $uri/ /app3/index.html;
+                        }
+                    }
+
+
             | *Fuente:* https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04
 
         *   **Reverse Proxy**
-
-            *   Generar un archivo de "Server Block"
-
-                    sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/ejemplo.com
 
             *   Editar el archivo
             
@@ -359,9 +388,9 @@ Backend listo para su uso con login y register para usuarios
                     // agregar lo siguiente
                     
                     server {
-                        listen 80;
-
-                        server_name ejemplo.com;
+                       ... 
+                       # contenido de los locations del server block del punto anterior
+                       ...
 
                         location /backend_1/ {
                             proxy_pass http://localhost:3000;
