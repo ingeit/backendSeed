@@ -365,12 +365,12 @@ Backend listo para su uso con login y register para usuarios
                             try_files $uri$args $uri$args/ $uri/ /app1/index.html;	
                         }
 
-                        location /app2/ {
+                        location /app2 {
                             alias /var/www/app2/;
                             try_files $uri$args $uri$args/ $uri/ /app2/index.html;
                         }
 
-                        location /app3/ {
+                        location /app3 {
                             alias /var/www/app3/;
                             try_files $uri$args $uri$args/ $uri/ /app3/index.html;
                         }
