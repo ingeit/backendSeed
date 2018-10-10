@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ingeit/backendseed",
   "dependencies": {
-    "bcrypt": "^3.0.0",
+    "bcrypt": "3.0.0",
     "cors": "^2.8.4",
     "debug": "~2.6.9",
     "express": "~4.16.3",
