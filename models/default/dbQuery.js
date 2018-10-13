@@ -14,7 +14,7 @@ exports.query = (sp_name, parametros = []) => {
                 return resolve(respuesta);
             })
             .catch(err => {
-                respuesta[0] = { 'codigo': -1, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }
+                respuesta[0] = { 'codigo': -500, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }
                 return reject(respuesta);
             })
     })

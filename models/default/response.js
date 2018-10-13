@@ -26,14 +26,11 @@ var response = mung.json(
         let codigo = body[0].codigo
         let mensaje = body[0].mensaje
         let respuesta = body[1]
-        if (codigo > 0) {
-            return res.status(200).json(respuesta);
-        }
-        if (codigo == 0) status = 400;
-        if (codigo == -1) status = 500
-        if (codigo == -2) status = 401;
-        if (codigo == -3) status = 403;
-        return res.status(status).json(mensaje);
+        if (codigo > 0) status = 200;
+        if (codigo === 0) status = 400;
+        if (codigo === -500) status = 500;
+        if (codigo === -401) status = 401;
+        return res.status(status).json({ codigo, mensaje, respuesta });
     }
 );
 

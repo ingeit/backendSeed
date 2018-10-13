@@ -24,16 +24,16 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
   auth.findOne(req.body)
     .then(respuesta => {
-      let pass_db = respuesta[1][0].password;
-      let pass_req = req.body.password;
-      let equal = bcrypt.compareSync(pass_req, pass_db);
+      const pass_db = respuesta[1][0].password;
+      const pass_req = req.body.password;
+      const equal = bcrypt.compareSync(pass_req, pass_db);
       if (equal) {
-        let token = utils.createToken(respuesta[1][0])
-        respuesta[1][0] = {};
+        const token = utils.createToken(respuesta[1][0])
         respuesta[1][0].token = token;
+        delete respuesta[1][0].password;
         return res.json(respuesta)
       } else {
-        let err = [{ 'codigo': 0, 'mensaje': "Contraseña incorrecta" }]
+        const err = [{ 'codigo': 0, 'mensaje': "Contraseña incorrecta" }]
         return res.json(err)
       }
     })
@@ -46,16 +46,17 @@ exports.ensureAuthenticated = function (req, res, next) {
   let token = req.headers.authorization
 
   if (!token) {
-    let respuesta = [{ 'codigo': -2, 'mensaje': "Token inexistente en cabecera" }]
+    let respuesta = [{ 'codigo': -500, 'mensaje': "Token inexistente en cabecera" }]
     return res.json(respuesta)
   }
 
   utils.verifyToken(token)
     .then(decoded => {
+      req.headers.idUsuario = decoded.idUsuario;
       return next();
     })
     .catch(err => {
-      let respuesta = [{ 'codigo': -3, 'mensaje': `Token incorrecto. Motivo: ${err.message}` }]
+      let respuesta = [{ 'codigo': -401, 'mensaje': `${err.message}` }]
       return res.json(respuesta)
     })
 }

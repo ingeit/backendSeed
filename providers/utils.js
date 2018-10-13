@@ -21,7 +21,7 @@ exports.encriptarPassword = (password = '') => {
                 return resolve(passHashed)
             })
             .catch(() => {
-                var respuesta = [{ 'codigo': -1, 'mensaje': "Problemas para encriptar el password" }]
+                var respuesta = [{ 'codigo': -500, 'mensaje': "Problemas para encriptar el password" }]
                 return reject(respuesta);
             })
     })
@@ -31,12 +31,9 @@ exports.createToken = (usuario) => {
     let payload = {
         idUsuario: usuario.idUsuario,
         username: usuario.username,
-        rol: usuario.rol,
-        nombre: usuario.nombre,
-        apellido: usuario.apellido,
-        mail: usuario.mail
+        rol: usuario.rol
     };
-    let expires = { expiresIn: '1m' }
+    let expires = { expiresIn: '1h' }
     return jwt.sign(payload, environment_var.secret_key, expires);
 };
 
