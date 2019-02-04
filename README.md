@@ -454,7 +454,7 @@ Backend listo para su uso con login y register para usuarios
                 Deberia existir la linea
                 
                     ...
-                    server_name example.com
+                    server_name example.com www.ejemplo.com
                     ...
 
             *   Verificar archivo de bloque valido
@@ -490,7 +490,7 @@ Backend listo para su uso con login y register para usuarios
        
             *   Obtener certificado SSL
 
-                    sudo certbot --nginx -d ejemplo.com
+                    sudo certbot --nginx -d ejemplo.com -d www.ejemplo.com
 
                 En caso de éxito, certbot te preguntará cómo configurar los ajustes para HTTPS:
 
